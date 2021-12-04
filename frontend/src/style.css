@@ -1,0 +1,12 @@
+.table-row{
+    display: flex;
+    flex-direction: row;
+}
+.table-header{
+    display: flex;
+    flex-direction: row;
+}
+.header-element, .table-cell{
+    width: 200px;
+    margin: 5px;
+}
