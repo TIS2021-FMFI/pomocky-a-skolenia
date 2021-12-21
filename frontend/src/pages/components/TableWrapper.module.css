@@ -1,0 +1,10 @@
+.tableContainer {
+    overflow-x: scroll;
+    width:1400px;
+}
+.warning {
+    color: 'orange';
+}
+.danger {
+    color: '#FF0000';
+}

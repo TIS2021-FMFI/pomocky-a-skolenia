@@ -1,12 +1,13 @@
 export const gefcoPalette = {
     primary: {
-        main: '#FF0000',
+        main: '#FFCD00',
         light: '#FF0000',
-        darK: '#FF0000',
+        dark: '#FF0000',
+        contrastText: '#FFFFFF',
     },
     secondary: {
-        main: '#FF0000',
+        main: '#00538B',
         light: '#FF0000',
-        darK: '#FF0000',
+        dark: '#FF0000',
     }
 }

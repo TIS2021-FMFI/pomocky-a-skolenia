@@ -1,104 +1,48 @@
-import { useEffect, useState } from "react"
-import { DUMMY_DATA } from "../../testData"
-import { Tab, Tabs, Box, TextField } from "@mui/material"
-import TableWrapper from "./TableWrapper"
+import { Tab, Tabs, Grid } from "@mui/material";
+import { useState } from "react";
+import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
+import EmployeeTab from "./EmployeeTab";
 
- 
 const MainPage = () => {
-    const [nameInput, setNameInput] = useState("")
-    const [surnameInput, setSurnameInput] = useState("")
-    const [idInput, setIdInput] = useState<number>(-1)
-    const [dataToShow, setDataToShow] = useState(DUMMY_DATA)
-    const [skolenieInput, setSkolenieInput] = useState("")
+  const [tabValue, setTabValue] = useState<number>(1);
 
-    const columns = Object.keys(DUMMY_DATA[0]).map(k =>{
-        return {
-            id: k,
-            label: k,
-            minWidth: 120,
-            format: null,
-        }
-    })
-
-    console.log(columns);
-    
-
-    const [columnsToShow, setColumnsToShow] = useState(columns)
-
-    useEffect(
-        () => {
-            setDataToShow(DUMMY_DATA
-                .filter(row => {
-                        return (row['meno'].toLowerCase().startsWith(nameInput)) && 
-                            (row['priezvisko'].toLowerCase().startsWith(surnameInput))&&
-                            (idInput === -1 ? true : row['id'] === idInput)
-            }))
-        },
-        [nameInput, idInput, surnameInput]
-    )
-
-    useEffect(
-        () => {
-            console.log(skolenieInput);
-            
-            setColumnsToShow(columns
-                .filter(col =>{
-                    return (col['id'] === 'meno') ||
-                        (col['id'] === 'priezvisko') ||
-                        (col['id'] === 'id') ||
-                        (col['id'].toLowerCase().startsWith(skolenieInput)) 
-                }
-
-                )
-                )
-        },
-        [skolenieInput]
-    )
-
-
-
-    return(
-        <>
-        <Box display={"flex"} flexDirection={"row"}>
-            <Tabs orientation="vertical" value={1}>
-                <Tab label="Konciace skolenia" value={0}/>
-                <Tab label="Zakladne skolenia" value={1}/>
-                <Tab label="Skolenia" value={2}/>
-            </Tabs>
-            <Box display={"flex"} flexDirection={"column"}>
-                <Box display={"flex"} flexDirection={"row"}>
-                    <TextField
-                        id="ID"
-                        label="ID"
-                        type="number"
-                        defaultValue=""
-                        onChange={e => setIdInput(e.target.value !== "" ? parseInt(e.target.value) : -1)}
-                    />
-                    <TextField
-                        id="Meno"
-                        label="Meno"
-                        defaultValue=""
-                        onChange={e => setNameInput(e.target.value.toLowerCase())}
-                    />
-                    <TextField
-                        id="Priezvisko"
-                        label="Priezvisko"
-                        defaultValue=""
-                        onChange={e => setSurnameInput(e.target.value.toLowerCase())}
-                    />
-                    <TextField
-                        id="Skolenie"
-                        label="Skolenie"
-                        defaultValue=""
-                        onChange={e => setSkolenieInput(e.target.value.toLowerCase())}
-                    />
-                </Box>
-                <TableWrapper rows={dataToShow} columns={columnsToShow}/>
-            </Box>
-            
-        </Box>
-        
-        </>
-    )
-}
-export default MainPage
+  return (
+    <>
+      <Grid container>
+        <Grid xl={1}>
+          <Tabs orientation="vertical" value={tabValue}>
+            <Tab
+              label="Konciace skolenia"
+              color={"primary.contrastText"}
+              value={0}
+              onClick={() => setTabValue(0)}
+            />
+            <Tab
+              label="Zakladne skolenia"
+              color={"primary.contrastText"}
+              value={1}
+              onClick={() => setTabValue(1)}
+            />
+            <Tab
+              label="Skolenia"
+              color={"primary.contrastText"}
+              value={2}
+              onClick={() => setTabValue(2)}
+            />
+          </Tabs>
+        </Grid>
+        {tabValue === 1 && (
+          <Grid xl={11}>
+            <EmployeeTab />
+          </Grid>
+        )}
+        {tabValue === 2 && (
+          <Grid xl={11}>
+            <CoursesBeforeExpireTab />
+          </Grid>
+        )}
+      </Grid>
+    </>
+  );
+};
+export default MainPage;
