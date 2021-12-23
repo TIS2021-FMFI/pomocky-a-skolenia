@@ -18,7 +18,7 @@ export const CoursesBeforeExpireColumns: Column[] = [
     },
     {
         id: COLUMN_NAME.osobneCislo,
-        label: "Osovne cislo",
+        label: "Osobne cislo",
         minWidth:120,
     },
     {
