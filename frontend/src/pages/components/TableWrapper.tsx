@@ -4,6 +4,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import styles from './TableWrapper.module.css'
 
 
 type TableProps = {
@@ -14,7 +15,7 @@ type TableProps = {
 const TableWrapper = ({columns, rows}: TableProps) => {
 
     return(
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer className={styles.tableContainer}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -37,7 +38,7 @@ const TableWrapper = ({columns, rows}: TableProps) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={"left"}>
-                          {value}
+                          {value && value.toString()}
                         </TableCell>
                       );
                     })}
