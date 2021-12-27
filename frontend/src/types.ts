@@ -1,5 +1,4 @@
 export type EmployeeData = {
-    id: number,
     meno: string,
     priezvisko: string,
     pravomoc: Pravomoc,
@@ -48,7 +47,7 @@ export type Column = {
     minWidth: number,
 }
 
-export type BeforeExpireRow = {
+export type KonciaceSkoleniaRow = {
     datum: Date,
     pocetDniPlatnosti?: number,
     skolenie: string,
@@ -56,4 +55,11 @@ export type BeforeExpireRow = {
     priezvisko: string,
     meno: string,
     nadriadeny: string,
+}
+
+export type SkoleniaRow = {
+    osobneCislo: number
+    priezvisko: string
+    meno: string
+    [key: string]: any
 }

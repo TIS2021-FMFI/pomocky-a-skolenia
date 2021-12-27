@@ -1,21 +1,25 @@
 import { Box, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import { DUMMY_DATA } from "../../testData";
 import { EmployeeData } from "../../types";
-import AddEmployeeModal from "../components/AddEmployeeModal";
+import EmployeeModal from "../components/EmployeeModal";
 import TableWrapper from "../components/TableWrapper";
+import { getStore, setStore } from "../../store/store";
+import { initialEmployee } from "../../constants";
 
 const EmployeeTab = () => {
+  const { zamestnanci } = getStore();
   const [nameInput, setNameInput] = useState<string>("");
   const [surnameInput, setSurnameInput] = useState<string>("");
-  const [idInput, setIdInput] = useState<number>(-1);
-  const [allData, setAllData] = useState<EmployeeData[]>(DUMMY_DATA);
-  const [dataToShow, setDataToShow] = useState(DUMMY_DATA);
+  const [dataToShow, setDataToShow] = useState(zamestnanci);
   const [skolenieInput, setSkolenieInput] = useState<string>("");
   const [showAddEmployeeModal, setShowAddEmployeeModal] =
     useState<boolean>(false);
+  const [showEditEmployeeModal, setShowEditEmployeeModal] =
+    useState<boolean>(false);
+  const [editEmployeeDate, setEditEmployeeData] =
+    useState<EmployeeData>(initialEmployee);
 
-  const columns = Object.keys(DUMMY_DATA[0]).map((k) => {
+  const columns = ["", ...Object.keys(zamestnanci[0])].map((k) => {
     return {
       id: k,
       label: k,
@@ -28,15 +32,14 @@ const EmployeeTab = () => {
 
   useEffect(() => {
     setDataToShow(
-      allData.filter((row) => {
+      zamestnanci.filter((row: any) => {
         return (
           row["meno"].toLowerCase().startsWith(nameInput) &&
-          row["priezvisko"].toLowerCase().startsWith(surnameInput) &&
-          (idInput === -1 ? true : row["id"] === idInput)
+          row["priezvisko"].toLowerCase().startsWith(surnameInput)
         );
       })
     );
-  }, [nameInput, idInput, surnameInput, allData]);
+  }, [nameInput, surnameInput, zamestnanci]);
 
   useEffect(() => {
     setColumnsToShow(
@@ -44,31 +47,28 @@ const EmployeeTab = () => {
         return (
           col["id"] === "meno" ||
           col["id"] === "priezvisko" ||
-          col["id"] === "id" ||
+          col["id"] === "" ||
           col["id"].toLowerCase().startsWith(skolenieInput)
         );
       })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skolenieInput, allData]);
+  }, [skolenieInput, zamestnanci]);
 
-  const handleAddEmployee = (data: EmployeeData) => {
-    setAllData([...allData, data]);
+  const handleAddEmployee = (newEmployee: EmployeeData) => {
+    const store = getStore();
+    setStore({ ...store, zamestnanci: [...store.zamestnanci, newEmployee] });
+  };
+
+  const handleEditEmployee = (data: any) => {
+    setEditEmployeeData(data);
+    setShowEditEmployeeModal(true);
   };
 
   return (
     <>
       <Box display={"flex"} flexDirection={"column"}>
         <Box display={"flex"} flexDirection={"row"}>
-          <TextField
-            id="ID"
-            label="ID"
-            type="number"
-            defaultValue=""
-            onChange={(e) =>
-              setIdInput(e.target.value !== "" ? parseInt(e.target.value) : -1)
-            }
-          />
           <TextField
             id="Meno"
             label="Meno"
@@ -87,19 +87,32 @@ const EmployeeTab = () => {
             defaultValue=""
             onChange={(e) => setSkolenieInput(e.target.value.toLowerCase())}
           />
-          <Button onClick={() => setShowAddEmployeeModal(true)}>
+          <Button
+            onClick={() => setShowAddEmployeeModal(true)}
+            variant="contained"
+          >
             Pridaj zamestnanca
           </Button>
         </Box>
-        <TableWrapper rows={dataToShow} columns={columnsToShow} />
+        <TableWrapper
+          rows={dataToShow}
+          columns={columnsToShow}
+          handleEditEmployee={handleEditEmployee}
+        />
       </Box>
-      <AddEmployeeModal
+      <EmployeeModal
         open={showAddEmployeeModal}
         handleClose={() => setShowAddEmployeeModal(false)}
+        handleSubmit={handleAddEmployee}
+      />
+      <EmployeeModal
+        open={showEditEmployeeModal}
+        handleClose={() => setShowEditEmployeeModal(false)}
+        initialData={editEmployeeDate}
         handleSubmit={handleAddEmployee}
       />
     </>
   );
 };
 
-export default EmployeeTab
+export default EmployeeTab;
