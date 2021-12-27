@@ -4,15 +4,16 @@ const keyTextDict: {[key: string]: string}= {
     "pravomoc": "Právomoc",
     "fa": "FA",	
     "oblast": "Oblasť",
-    "osobneCislo": "Osobné číslo",
+    "osobne_cislo": "Osobné číslo",
     "karticka": "Kartička",
     "kava": "Káva",
     "bufetka": "Bufetka",
-    "zfSatna": "ZF Šatňa",
-    "zfSkrinka": "ZF Skrinka",
+    "zfsatna": "ZF Šatňa",
+    "zfskrinka": "ZF Skrinka",
     "winnex": "Winnex",
     "pozicia": "Pozícia",
-
+    "vzv": "VZV",
+    "datum_vydania": "Dátum vydania",
 }
 
 export const keyToText = (key: string): string => {

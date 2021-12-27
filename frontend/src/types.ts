@@ -6,17 +6,17 @@ export type EmployeeData = {
     pozicia: string,
     fa: Fa,
     oblast: string,
-    osobneCislo: number | undefined,
+    osobne_cislo: number | undefined,
     karticka: number | undefined,
     kava: Kava,
     bufetka: number | undefined,
-    zfSatna: number | undefined,
-    zfSkrinka: number | undefined,
+    zfsatna: number | undefined,
+    zfskrinka: number | undefined,
     winnex: number | undefined,
 }
 
 export enum Fa {
-    GEFCO = 'Gefco',
+    GEFCO = 'GEFCO',
     LEASING = 'Leasing',
     AGENTURA = 'Agentura'
 }
@@ -27,7 +27,7 @@ export enum Pravomoc {
 }
 
 export enum Kava {
-    ANO = 'Ano',
+    ANO = 'Áno',
     NIE = 'Nie'
 }
 
@@ -35,7 +35,7 @@ export enum COLUMN_NAME  {
     datum = "datum",
     pocetDniPlatnosti = "pocetDniPlatnosti",
     skolenie = "skolenie",
-    osobneCislo = "osobneCislo",
+    osobne_cislo = "osobne_cislo",
     priezvisko = "priezvisko", 
     meno = "meno",
     nadriadeny = "nadriadeny",
@@ -51,14 +51,14 @@ export type KonciaceSkoleniaRow = {
     datum: Date,
     pocetDniPlatnosti?: number,
     skolenie: string,
-    osobneCislo: number,
+    osobne_cislo: number,
     priezvisko: string,
     meno: string,
     nadriadeny: string,
 }
 
 export type SkoleniaRow = {
-    osobneCislo: number
+    osobne_cislo: number
     priezvisko: string
     meno: string
     [key: string]: any
