@@ -1,8 +1,7 @@
-import { BeforeExpireRow, EmployeeData, Fa, Kava, Pravomoc } from "./types";
+import { KonciaceSkoleniaRow, EmployeeData, Fa, Kava, Pravomoc } from "./types";
 
 export const DUMMY_DATA: EmployeeData[] = [
   {
-    id: 0,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -18,7 +17,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: undefined,
   },
   {
-    id: 1,
     meno: "Filip",
     priezvisko: "Novy",
     pravomoc: Pravomoc.NADRIADENY,
@@ -35,7 +33,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 213,
   },
   {
-    id: 2,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -51,7 +48,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 11,
   },
   {
-    id: 0,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -67,7 +63,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: undefined,
   },
   {
-    id: 1,
     meno: "Filip",
     priezvisko: "Novy",
     pravomoc: Pravomoc.NADRIADENY,
@@ -84,7 +79,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 213,
   },
   {
-    id: 2,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -100,7 +94,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 11,
   },
   {
-    id: 0,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -116,7 +109,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: undefined,
   },
   {
-    id: 1,
     meno: "Filip",
     priezvisko: "Novy",
     pravomoc: Pravomoc.NADRIADENY,
@@ -133,7 +125,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 213,
   },
   {
-    id: 2,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -149,7 +140,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 11,
   },
   {
-    id: 0,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -165,7 +155,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: undefined,
   },
   {
-    id: 1,
     meno: "Filip",
     priezvisko: "Novy",
     pravomoc: Pravomoc.NADRIADENY,
@@ -182,7 +171,6 @@ export const DUMMY_DATA: EmployeeData[] = [
     winnex: 213,
   },
   {
-    id: 2,
     meno: "Adam",
     priezvisko: "Maly",
     pravomoc: Pravomoc.PRACOVNIK,
@@ -199,7 +187,7 @@ export const DUMMY_DATA: EmployeeData[] = [
   },
 ];
 
-export const expCourses: BeforeExpireRow[] = [
+export const expCourses: KonciaceSkoleniaRow[] = [
   {
     datum: new Date(),
     pocetDniPlatnosti: 9,
