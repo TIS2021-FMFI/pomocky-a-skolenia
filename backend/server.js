@@ -10,10 +10,10 @@ const app = express();
 const Pool = require('pg').Pool;
   
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'gefcotest',
-    password: 'Data11',
+    user: 'ggqxjolq',
+    host: 'abul.db.elephantsql.com',
+    database: 'ggqxjolq',
+    password: 'M-hueRYiWJK11fJjxL2HNEImG18jkliD',
     dialect: 'postgres',
     port: 5432
 });
