@@ -60,8 +60,7 @@ app.get('/oblasti', async (req, res, next) => {
 
 app.post('/oblasti', (req, res)=> {
     const ob = req.body.oblast;
-    let insertQuery = `insert into oblast(oblast) values('${ob}')`
-    pool.query(insertQuery, (err, result)=>{
+    pool.query(`insert into oblast(oblast) values($1)`,[ob], (err, result)=>{
         if(!err){
             res.send({message:'Insertion was successful'})
         }
