@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -42,16 +42,18 @@ const TableWrapper = ({ columns, rows, handleEditEmployee }: TableProps) => {
                     const value = row[column.id];
                     return column.id === "" ? (
                       <TableCell key={column.id} align="center">
-                        <Button
-                          variant="contained"
-                          size="small"
-                          onClick={() => handleEditEmployee(row)}
-                        >
-                          Uprav
-                        </Button>
-                        <Button variant="contained" size="small">
-                          Odstran
-                        </Button>
+                        <Box display={"flex"} flexDirection={"column"}>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() => handleEditEmployee(row)}
+                          >
+                            Uprav
+                          </Button>
+                          <Button variant="contained" size="small">
+                            Odstráň
+                          </Button>
+                        </Box>
                       </TableCell>
                     ) : (
                       <TableCell key={column.id} align={"left"}>

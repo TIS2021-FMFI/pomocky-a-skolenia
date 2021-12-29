@@ -9,5 +9,9 @@ export const gefcoPalette = {
         main: '#00538B',
         light: '#FF0000',
         dark: '#FF0000',
+        contrastText: "#FFFFFF",
+    },
+    inherite: {
+        main: "#FFFFFF",
     }
 }
