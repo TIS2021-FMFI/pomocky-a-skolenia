@@ -2,21 +2,17 @@ import { Autocomplete, Chip, TextField } from "@mui/material";
 import { getStore } from "../../store/store";
 
 type MultiSelectProps = {
-  data: any[] 
-  setData: (data: any[]) => void
-  disabled: boolean
-  name: string
-}
+  data: any[];
+  setData: (data: any[]) => void;
+  disabled: boolean;
+  name: string;
+};
 
-const MultiSelect = ({name, data, setData, disabled}: MultiSelectProps) => {
-
-  const {oblasti} = getStore() 
-  
-
-  console.log("value: ", data);
+const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
+  const { oblasti } = getStore();
 
   return (
-    <div >
+    <div>
       <Autocomplete
         value={data}
         disabled={disabled}
@@ -48,7 +44,6 @@ const MultiSelect = ({name, data, setData, disabled}: MultiSelectProps) => {
       />
     </div>
   );
-}
+};
 
-export default MultiSelect
-
+export default MultiSelect;

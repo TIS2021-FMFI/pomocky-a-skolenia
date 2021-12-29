@@ -55,8 +55,6 @@ const EmployeeModal = ({
   handleSubmit,
   initialData,
 }: EmployeeModalProps) => {
-  console.log(initialData);
-
   return (
     <Modal open={open} onClose={handleClose}>
       <div className={styles.wh}>
@@ -66,7 +64,6 @@ const EmployeeModal = ({
           initialValues={initialData || initialEmployee}
           validationSchema={addEmployeeSchema}
           onSubmit={(data) => {
-            console.log("submit: ", data);
             handleSubmit(data);
             handleClose();
           }}
@@ -134,14 +131,14 @@ const EmployeeModal = ({
                   <MyRadio
                     name="kava"
                     type="radio"
-                    value={"true"}
-                    label={Kava.ANO}
+                    value={Kava.ANO}
+                    label={"Áno"}
                   />
                   <MyRadio
                     name="kava"
                     type="radio"
-                    value={"false"}
-                    label={Kava.NIE}
+                    value={Kava.NIE}
+                    label={"Nie"}
                   />
                 </Box>
                 <Box display={"flex"} justifyContent={"space-between"}>
@@ -152,9 +149,6 @@ const EmployeeModal = ({
                     close
                   </Button>
                 </Box>
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-                <pre>{JSON.stringify(errors, null, 2)}</pre> */}
-                {console.log(values)}
               </Box>
             </Form>
           )}

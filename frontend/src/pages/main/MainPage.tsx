@@ -1,10 +1,15 @@
 import { Tab, Tabs, Grid } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchEmployees } from "../../helpers/requests";
 import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
 import EmployeeTab from "./EmployeeTab";
 
 const MainPage = () => {
   const [tabValue, setTabValue] = useState<number>(0);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <>

@@ -39,7 +39,6 @@ const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
               row.pocetDniPlatnosti !== undefined &&
               row.pocetDniPlatnosti < 14
             ) {
-              console.log(row["priezvisko"]);
               color = "error.main";
             }
             return (

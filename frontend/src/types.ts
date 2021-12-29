@@ -27,8 +27,8 @@ export enum Pravomoc {
 }
 
 export enum Kava {
-    ANO = 'Áno',
-    NIE = 'Nie'
+    ANO = 'true',
+    NIE = 'false'
 }
 
 export enum COLUMN_NAME  {
