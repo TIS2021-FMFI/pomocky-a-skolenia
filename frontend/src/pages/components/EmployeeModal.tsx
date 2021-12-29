@@ -55,12 +55,14 @@ const EmployeeModal = ({
   handleSubmit,
   initialData,
 }: EmployeeModalProps) => {
+  console.log(initialData);
+
   return (
     <Modal open={open} onClose={handleClose}>
       <div className={styles.wh}>
         <Formik
           validateOnChange={true}
-          isInitialValid={!!initialData}
+          validateOnMount={true}
           initialValues={initialData || initialEmployee}
           validationSchema={addEmployeeSchema}
           onSubmit={(data) => {
@@ -74,7 +76,7 @@ const EmployeeModal = ({
               <Box display={"flex"} flexDirection={"column"} color="secondary">
                 <MyTextField name="priezvisko" className={styles.half} />
                 <MyTextField name="meno" />
-                <MyTextField name="osobneCislo" type="number" />
+                <MyTextField name="osobne_cislo" type="number" />
                 <MultiSelect
                   name="oblasti"
                   data={values.oblasti || []}
@@ -102,8 +104,8 @@ const EmployeeModal = ({
                 /> */}
                 <MyTextField name="karticka" type="number" />
                 <MyTextField name="bufetka" type="number" />
-                <MyTextField name="zfSatna" type="number" />
-                <MyTextField name="zfSkrinka" type="number" />
+                <MyTextField name="zfsatna" type="number" />
+                <MyTextField name="zfskrinka" type="number" />
                 <MyTextField name="winnex" type="number" />
                 <MyTextField name="pozicia" type="number" />
                 <MyTextField name="oblast" type="number" />
@@ -132,13 +134,13 @@ const EmployeeModal = ({
                   <MyRadio
                     name="kava"
                     type="radio"
-                    value={Kava.ANO}
+                    value={"true"}
                     label={Kava.ANO}
                   />
                   <MyRadio
                     name="kava"
                     type="radio"
-                    value={Kava.NIE}
+                    value={"false"}
                     label={Kava.NIE}
                   />
                 </Box>

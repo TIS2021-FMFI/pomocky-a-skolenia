@@ -5,6 +5,7 @@ import EmployeeModal from "../components/EmployeeModal";
 import TableWrapper from "../components/TableWrapper";
 import { getStore, setStore } from "../../store/store";
 import { initialEmployee } from "../../constants";
+import { fetchEmployees } from "../../helpers/requests";
 
 const EmployeeTab = () => {
   const { zamestnanci } = getStore();
@@ -18,6 +19,10 @@ const EmployeeTab = () => {
     useState<boolean>(false);
   const [editEmployeeDate, setEditEmployeeData] =
     useState<EmployeeData>(initialEmployee);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   const columns = ["", ...Object.keys(zamestnanci[0])].map((k) => {
     return {

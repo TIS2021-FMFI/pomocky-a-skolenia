@@ -39,7 +39,7 @@ const TableWrapper = ({ columns, rows, handleEditEmployee }: TableProps) => {
                 {columns.map((column) => {
                   const value = row[column.id];
                   return column.id === "" ? (
-                    <TableCell align="center">
+                    <TableCell key={column.id} align="center">
                       <Button
                         variant="contained"
                         size="small"

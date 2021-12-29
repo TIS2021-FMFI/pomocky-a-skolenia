@@ -17,7 +17,7 @@ export const CoursesBeforeExpireColumns: Column[] = [
     minWidth: 120,
   },
   {
-    id: COLUMN_NAME.osobneCislo,
+    id: COLUMN_NAME.osobne_cislo,
     label: "Osobne cislo",
     minWidth: 120,
   },
@@ -46,11 +46,11 @@ export const initialEmployee = {
   pozicia: "",
   fa: Fa.GEFCO,
   oblast: "",
-  osobneCislo: undefined,
+  osobne_cislo: undefined,
   karticka: undefined,
   kava: Kava.NIE,
   bufetka: undefined,
-  zfSatna: undefined,
-  zfSkrinka: undefined,
+  zfsatna: undefined,
+  zfskrinka: undefined,
   winnex: undefined,
 };

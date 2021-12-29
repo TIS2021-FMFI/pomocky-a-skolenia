@@ -1,9 +1,10 @@
 import { DUMMY_DATA } from "../testData";
+import { EmployeeData } from "../types";
 
 export type Store = {
   skolenia: Skolenie[];
   nadriadeni: any;
-  zamestnanci: any;
+  zamestnanci: EmployeeData[];
   oblasti: Oblast[];
 };
 
