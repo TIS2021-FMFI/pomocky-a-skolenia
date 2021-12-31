@@ -1,4 +1,21 @@
-import { KonciaceSkoleniaRow, EmployeeData, Fa, Kava, Pravomoc } from "./types";
+import { KonciaceSkoleniaRow, EmployeeData, Fa, Kava, Pravomoc, SkoleniaZamestnanca } from "./types";
+
+export const DUMMY_SKOLENIA: SkoleniaZamestnanca[] = [
+  {
+    meno: "Adam",
+    priezvisko: "Maly",
+    osobneCislo: 12,
+    skolenie1: {
+      datum: new Date(321),
+      nazov: 'skolenie1',
+      kod: "sk1",
+      dlzka_platnosti: 12,
+      oblast: "vyroba",
+      popis: "kratky popis"
+    },
+  }
+]
+
 
 export const DUMMY_DATA: EmployeeData[] = [
   {

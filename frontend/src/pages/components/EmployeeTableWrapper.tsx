@@ -16,7 +16,11 @@ type TableProps = {
   handleEditEmployee: (rowData: EmployeeData) => void;
 };
 
-const TableWrapper = ({ columns, rows, handleEditEmployee }: TableProps) => {
+const EmployeeTableWrapper = ({
+  columns,
+  rows,
+  handleEditEmployee,
+}: TableProps) => {
   const memTable = useMemo(() => {
     return (
       <TableContainer className={styles.tableContainer}>
@@ -75,4 +79,4 @@ const TableWrapper = ({ columns, rows, handleEditEmployee }: TableProps) => {
 
   return memTable;
 };
-export default TableWrapper;
+export default EmployeeTableWrapper;

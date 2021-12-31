@@ -2,6 +2,7 @@ import { Tab, Tabs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fetchEmployees } from "../../helpers/requests";
 import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
+import CoursesTab from "./CoursesTab";
 import EmployeeTab from "./EmployeeTab";
 import styles from "./MainPage.module.css";
 
@@ -68,6 +69,7 @@ const MainPage = () => {
         >
           {tabValue === 0 && <CoursesBeforeExpireTab />}
           {tabValue === 1 && <EmployeeTab />}
+          {tabValue === 2 && <CoursesTab />}
         </Grid>
       </Grid>
     </>

@@ -1,11 +1,13 @@
 .wrapper {
-  width: min-content;
+  width: fit-content;
   min-width: 100%;
 }
 
 .rowContent {
   padding-left: 2em;
+  width: fit-content;
 }
 .colContent {
   padding-top: 2em;
+  width: fit-content;
 }

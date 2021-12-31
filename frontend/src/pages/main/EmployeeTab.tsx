@@ -2,7 +2,7 @@ import { Box, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import { EmployeeData } from "../../types";
 import EmployeeModal from "../components/EmployeeModal";
-import TableWrapper from "../components/TableWrapper";
+import EmployeeTableWrapper from "../components/EmployeeTableWrapper";
 import { getStore, setStore } from "../../store/store";
 import { initialEmployee } from "../../constants";
 
@@ -67,7 +67,11 @@ const EmployeeTab = () => {
 
   return (
     <>
-      <Box display={"flex"} flexDirection={"column"}>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        style={{ width: "fit-content" }}
+      >
         <Box display={"flex"} flexDirection={"row"}>
           <TextField
             id="Meno"
@@ -94,7 +98,7 @@ const EmployeeTab = () => {
             Pridaj zamestnanca
           </Button>
         </Box>
-        <TableWrapper
+        <EmployeeTableWrapper
           rows={dataToShow}
           columns={columnsToShow}
           handleEditEmployee={handleEditEmployee}

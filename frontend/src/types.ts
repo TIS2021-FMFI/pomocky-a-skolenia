@@ -63,3 +63,26 @@ export type SkoleniaRow = {
     meno: string
     [key: string]: any
 }
+
+export type Oblast = {
+  id: number;
+  meno: string;
+};
+
+
+type baseType = {
+    meno: string;
+  priezvisko: string;
+  osobneCislo: number;
+};
+type restType = { [key: string]: Skolenie | string | number };
+export type SkoleniaZamestnanca = Omit<restType, keyof baseType> & baseType;
+
+export type Skolenie = {
+  datum: Date;
+  nazov: string;
+  kod: string;
+  oblast: string;
+  dlzka_platnosti: number;
+  popis: string;
+};
