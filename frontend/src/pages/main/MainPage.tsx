@@ -1,8 +1,10 @@
-import { Tab, Tabs, Grid } from "@mui/material";
+import { Tab, Tabs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fetchEmployees } from "../../helpers/requests";
 import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
+import CoursesTab from "./CoursesTab";
 import EmployeeTab from "./EmployeeTab";
+import styles from "./MainPage.module.css";
 
 const MainPage = () => {
   const [tabValue, setTabValue] = useState<number>(0);
@@ -11,45 +13,64 @@ const MainPage = () => {
     fetchEmployees();
   }, []);
 
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up("md"));
+
+  console.log("LS: ", largeScreen);
+
   return (
     <>
-      <Grid container>
+      <Grid container className={styles.wrapper}>
         <Grid
           container
-          direction="column"
           alignItems="center"
           justifyContent="center"
-          style={{ height: "100vh" }}
+          bgcolor={"secondary.main"}
+          item={true}
+          style={{
+            ...(largeScreen
+              ? { height: "100vh", width: "fit-content" }
+              : { height: "fit-content", width: "100vw" }),
+            ...{ position: "sticky", top: 0, left: 0, zIndex: 100 },
+          }}
+          md={1}
+          lg={1}
           xl={1}
         >
-          <Tabs orientation="vertical" value={tabValue}>
+          <Tabs
+            orientation={largeScreen ? "vertical" : "horizontal"}
+            value={tabValue}
+            indicatorColor="primary"
+            // textColor="inherit"
+          >
             <Tab
               label="Konciace skolenia"
-              color={"primary.contrastText"}
+              color={"secondary.contrastText"}
               onClick={() => setTabValue(0)}
             />
             <Tab
               label="Zakladne skolenia"
-              color={"primary.contrastText"}
+              color={"secondary.contrastText"}
               onClick={() => setTabValue(1)}
             />
             <Tab
               label="Skolenia"
-              color={"primary.contrastText"}
+              color={"secondary.contrastText"}
               onClick={() => setTabValue(2)}
             />
           </Tabs>
         </Grid>
-        {tabValue === 0 && (
-          <Grid xl={11}>
-            <CoursesBeforeExpireTab />
-          </Grid>
-        )}
-        {tabValue === 1 && (
-          <Grid xl={11}>
-            <EmployeeTab />
-          </Grid>
-        )}
+        <Grid
+          md={11}
+          lg={11}
+          xl={11}
+          item={true}
+          className={largeScreen ? styles.rowContent : styles.colContent}
+        >
+          {tabValue === 0 && <CoursesBeforeExpireTab />}
+          {tabValue === 1 && <EmployeeTab />}
+          {tabValue === 2 && <CoursesTab />}
+        </Grid>
       </Grid>
     </>
   );

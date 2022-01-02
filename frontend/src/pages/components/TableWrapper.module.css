@@ -1,10 +1,14 @@
 .tableContainer {
-    overflow-x: scroll;
-    width:1400px;
+  max-width: fit-content;
+  overflow-x: none;
 }
 .warning {
-    color: 'orange';
+  color: "orange";
 }
 .danger {
-    color: '#FF0000';
+  color: "#FF0000";
+}
+
+td {
+  max-width: fit-content;
 }

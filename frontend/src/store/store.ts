@@ -1,31 +1,15 @@
-import { DUMMY_DATA } from "../testData";
-import { EmployeeData } from "../types";
+import { DUMMY_DATA, DUMMY_SKOLENIA } from "../testData";
+import { EmployeeData, Oblast, SkoleniaZamestnanca } from "../types";
 
 export type Store = {
-  skolenia: Skolenie[];
+  skoleniaZamestnancov: SkoleniaZamestnanca[];
   nadriadeni: any;
   zamestnanci: EmployeeData[];
   oblasti: Oblast[];
 };
 
-type Oblast = {
-  id: number;
-  meno: string;
-};
-
-type Skolenie = {
-  meno: string;
-  priezvisko: string;
-  datum: Date;
-  nazov: string;
-  kod: string;
-  oblast: string;
-  dlzka_platnosti: number;
-  popis: string;
-};
-
 let store: Store = {
-  skolenia: [],
+  skoleniaZamestnancov: DUMMY_SKOLENIA,
   nadriadeni: {},
   zamestnanci: DUMMY_DATA,
   oblasti: [
