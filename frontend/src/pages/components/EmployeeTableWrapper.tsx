@@ -62,7 +62,9 @@ const EmployeeTableWrapper = ({
                     ) : (
                       <TableCell key={column.id} align={"left"}>
                         {column.id === "datum_vydania"
-                          ? new Date(value).toLocaleDateString("sk-SK")
+                          ? !!value
+                            ? new Date(value).toLocaleDateString("sk-SK")
+                            : ""
                           : value && value.toString()}
                       </TableCell>
                     );
