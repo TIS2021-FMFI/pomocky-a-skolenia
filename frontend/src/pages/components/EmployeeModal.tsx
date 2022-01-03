@@ -78,26 +78,6 @@ const EmployeeModal = ({
                 <MyTextField name="priezvisko" />
                 <MyTextField name="meno" />
                 <MyTextField name="osobne_cislo" type="number" />
-                {/* <MultiSelect
-                  name="oblasti"
-                  data={values.oblasti || []}
-                  setData={(data) => setFieldValue("oblasti", data)}
-                  disabled={values.pravomoc !== Pravomoc.NADRIADENY}
-                />
-                <Box>
-                  <MyRadio
-                    name="pravomoc"
-                    type="radio"
-                    value={Pravomoc.NADRIADENY}
-                    label={Pravomoc.NADRIADENY}
-                  />
-                  <MyRadio
-                    name="pravomoc"
-                    type="radio"
-                    value={Pravomoc.PRACOVNIK}
-                    label={Pravomoc.PRACOVNIK}
-                  />
-                </Box> */}
                 <MyTextField name="karticka" type="number" />
                 <MyTextField name="bufetka" type="number" />
                 <MyTextField name="zfsatna" type="string" />
@@ -105,10 +85,10 @@ const EmployeeModal = ({
                 <MyTextField name="winnex" type="number" />
                 <MyTextField name="pozicia" type="string" />
                 <Box display={"flex"} flexDirection={"row"}>
-                  <MyTextField name="vzv" type="string" />
+                  <MyTextField name="VZV" type="string" />
                   <DatePicker
                     sx={{ flexGrow: 1 }}
-                    disabled={values.VZV === ""}
+                    disabled={!!!values.VZV}
                     setData={(datum: Date | null) =>
                       setFieldValue("datum_vydania", datum)
                     }

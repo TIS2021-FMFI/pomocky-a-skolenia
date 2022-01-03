@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { EmployeeData } from "../../types";
 import EmployeeModal from "../components/EmployeeModal";
 import EmployeeTableWrapper from "../components/EmployeeTableWrapper";
-import { getStore, setStore } from "../../store/store";
+import { getStore } from "../../store/store";
 import { initialEmployee } from "../../constants";
-import { fetchEmployees } from "../../helpers/requests";
+import { addEmployee, fetchEmployees } from "../../helpers/requests";
 
 const EmployeeTab = () => {
   const { zamestnanci } = getStore();
@@ -72,8 +72,8 @@ const EmployeeTab = () => {
   console.log(getStore().oblasti);
 
   const handleAddEmployee = (newEmployee: EmployeeData) => {
-    const store = getStore();
-    setStore({ ...store, zamestnanci: [...store.zamestnanci, newEmployee] });
+    addEmployee(newEmployee);
+    fetchEmployees();
   };
 
   const handleEditEmployee = (data: any) => {
