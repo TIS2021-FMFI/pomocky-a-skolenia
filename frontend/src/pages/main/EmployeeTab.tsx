@@ -5,6 +5,7 @@ import EmployeeModal from "../components/EmployeeModal";
 import EmployeeTableWrapper from "../components/EmployeeTableWrapper";
 import { getStore, setStore } from "../../store/store";
 import { initialEmployee } from "../../constants";
+import { fetchEmployees } from "../../helpers/requests";
 
 const EmployeeTab = () => {
   const { zamestnanci } = getStore();
@@ -19,14 +20,27 @@ const EmployeeTab = () => {
   const [editEmployeeDate, setEditEmployeeData] =
     useState<EmployeeData>(initialEmployee);
 
-  const columns = ["", ...Object.keys(zamestnanci[0])].map((k) => {
-    return {
-      id: k,
-      label: k,
-      minWidth: 120,
-      format: null,
-    };
-  });
+  const columns = Object.keys(zamestnanci.length > 0 ? zamestnanci[0] : []).map(
+    (k) => {
+      return k === "id"
+        ? {
+            id: "",
+            label: "",
+            minWidth: 120,
+            format: null,
+          }
+        : {
+            id: k,
+            label: k,
+            minWidth: 120,
+            format: null,
+          };
+    }
+  );
+
+  if (zamestnanci.length === 0) {
+    fetchEmployees();
+  }
 
   const [columnsToShow, setColumnsToShow] = useState(columns);
 
@@ -54,6 +68,8 @@ const EmployeeTab = () => {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skolenieInput, zamestnanci]);
+
+  console.log(getStore().oblasti);
 
   const handleAddEmployee = (newEmployee: EmployeeData) => {
     const store = getStore();

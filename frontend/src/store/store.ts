@@ -1,4 +1,4 @@
-import { DUMMY_DATA, DUMMY_SKOLENIA } from "../testData";
+import {DUMMY_SKOLENIA } from "../testData";
 import { EmployeeData, Oblast, SkoleniaZamestnanca } from "../types";
 
 export type Store = {
@@ -11,10 +11,10 @@ export type Store = {
 let store: Store = {
   skoleniaZamestnancov: DUMMY_SKOLENIA,
   nadriadeni: {},
-  zamestnanci: DUMMY_DATA,
+  zamestnanci: [],
   oblasti: [
-    { id: 1, meno: "abc" },
-    { id: 2, meno: "efg" },
+    { id: 1, oblast: "abc" },
+    { id: 2, oblast: "efg" },
   ],
 };
 
