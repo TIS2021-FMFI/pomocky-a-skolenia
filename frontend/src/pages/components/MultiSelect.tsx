@@ -21,7 +21,7 @@ const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
         }}
         multiple
         id="tags-filled"
-        options={oblasti.map((option) => option.meno)}
+        options={oblasti.map((option) => option.oblast)}
         freeSolo
         renderTags={(value: string[], getTagProps) =>
           value.map((option: string, index: number) => (
@@ -39,6 +39,7 @@ const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
             variant="filled"
             label="Users"
             placeholder="Search"
+            fullWidth={true}
           />
         )}
       />

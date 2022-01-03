@@ -10,11 +10,13 @@ import {
 import { FieldAttributes, Form, Formik, useField } from "formik";
 import { initialEmployee } from "../../constants";
 import { addEmployeeSchema } from "../../schemas";
-import { EmployeeData, Fa, Kava, Pravomoc } from "../../types";
+import { EmployeeData, Fa, Kava } from "../../types";
 import { keyToText as k } from "../../helpers/keysToText";
 
 import styles from "./AddEmployeeModal.module.css";
-import MultiSelect from "./MultiSelect";
+import { getStore } from "../../store/store";
+import DropdownWithAdd from "./DropdownWithAdd";
+import DatePicker from "./DatePicker";
 
 type MyRadioProps = { label: string } & FieldAttributes<{}>;
 
@@ -25,7 +27,7 @@ const MyRadio: React.FC<MyRadioProps> = ({ label, ...props }) => {
 
 const MyTextField: React.FC<FieldAttributes<{}>> = ({ name, ...props }) => {
   const [field, meta] = useField<{}>({ ...props, name });
-  const errorText = meta.error && meta.touched ? meta.error : "";
+  const errorText = meta.error ? meta.error : "";
   return (
     <Box display={"flex"} flexDirection={"row"}>
       <Typography width={120}>{k(name)}</Typography>
@@ -34,8 +36,7 @@ const MyTextField: React.FC<FieldAttributes<{}>> = ({ name, ...props }) => {
         {...field}
         helperText={errorText}
         error={!!errorText}
-        className={styles.half}
-        fullWidth={true}
+        sx={{ flexGrow: 1 }}
         disabled={props.disabled}
       />
     </Box>
@@ -55,6 +56,9 @@ const EmployeeModal = ({
   handleSubmit,
   initialData,
 }: EmployeeModalProps) => {
+  const { oblasti } = getStore();
+  console.log(initialData);
+
   return (
     <Modal open={open} onClose={handleClose}>
       <div className={styles.wh}>
@@ -68,13 +72,13 @@ const EmployeeModal = ({
             handleClose();
           }}
         >
-          {({ values, errors, isValid, setFieldValue }) => (
+          {({ values, isValid, setFieldValue }) => (
             <Form>
               <Box display={"flex"} flexDirection={"column"} color="secondary">
-                <MyTextField name="priezvisko" className={styles.half} />
+                <MyTextField name="priezvisko" />
                 <MyTextField name="meno" />
                 <MyTextField name="osobne_cislo" type="number" />
-                <MultiSelect
+                {/* <MultiSelect
                   name="oblasti"
                   data={values.oblasti || []}
                   setData={(data) => setFieldValue("oblasti", data)}
@@ -93,19 +97,34 @@ const EmployeeModal = ({
                     value={Pravomoc.PRACOVNIK}
                     label={Pravomoc.PRACOVNIK}
                   />
-                </Box>
-                {/* <MyTextField
-                  name="oblasti"
-                  type="array"
-                  disabled={values.pravomoc === Pravomoc.PRACOVNIK}
-                /> */}
+                </Box> */}
                 <MyTextField name="karticka" type="number" />
                 <MyTextField name="bufetka" type="number" />
-                <MyTextField name="zfsatna" type="number" />
+                <MyTextField name="zfsatna" type="string" />
                 <MyTextField name="zfskrinka" type="number" />
                 <MyTextField name="winnex" type="number" />
-                <MyTextField name="pozicia" type="number" />
-                <MyTextField name="oblast" type="number" />
+                <MyTextField name="pozicia" type="string" />
+                <Box display={"flex"} flexDirection={"row"}>
+                  <MyTextField name="vzv" type="string" />
+                  <DatePicker
+                    sx={{ flexGrow: 1 }}
+                    disabled={values.VZV === ""}
+                    setData={(datum: Date | null) =>
+                      setFieldValue("datum_vydania", datum)
+                    }
+                    initialValue={values.datum_vydania}
+                  />
+                </Box>
+                <Box display={"flex"} flexDirection={"row"}>
+                  <Typography width={120}>Oblasť</Typography>
+                  <DropdownWithAdd
+                    options={oblasti.map((o) => ({ name: o.oblast }))}
+                    setData={(data: string) => setFieldValue("oblast", data)}
+                    initialValue={
+                      values.oblast ? { name: values.oblast } : null
+                    }
+                  />
+                </Box>
 
                 <Box>
                   <MyRadio

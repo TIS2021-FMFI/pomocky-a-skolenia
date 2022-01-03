@@ -1,6 +1,6 @@
 import { Tab, Tabs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { fetchEmployees } from "../../helpers/requests";
+import { fetchEmployees, fetchRegions } from "../../helpers/requests";
 import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
 import CoursesTab from "./CoursesTab";
 import EmployeeTab from "./EmployeeTab";
@@ -11,12 +11,11 @@ const MainPage = () => {
 
   useEffect(() => {
     fetchEmployees();
+    fetchRegions();
   }, []);
 
   const theme = useTheme();
   const largeScreen = useMediaQuery(theme.breakpoints.up("md"));
-
-  console.log("LS: ", largeScreen);
 
   return (
     <>

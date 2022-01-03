@@ -1,4 +1,4 @@
-import { Column, COLUMN_NAME, Fa, Kava, Pravomoc } from "./types";
+import { Column, COLUMN_NAME, EmployeeData, Fa, Kava } from "./types";
 
 export const CoursesBeforeExpireColumns: Column[] = [
   {
@@ -38,11 +38,13 @@ export const CoursesBeforeExpireColumns: Column[] = [
   },
 ];
 
-export const initialEmployee = {
+export const initialEmployee: EmployeeData = {
   meno: "",
   priezvisko: "",
-  pravomoc: Pravomoc.PRACOVNIK,
-  oblasti: [],
+  // pravomoc: Pravomoc.PRACOVNIK,
+  // oblasti: [],
+  VZV: "",
+  datum_vydania: null,
   pozicia: "",
   fa: Fa.GEFCO,
   oblast: "",

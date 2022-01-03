@@ -1,8 +1,10 @@
 export type EmployeeData = {
     meno: string,
     priezvisko: string,
-    pravomoc: Pravomoc,
-    oblasti?: string[],
+    // pravomoc: Pravomoc,
+    // oblasti?: string[],
+    VZV: string,
+    datum_vydania: Date | null,
     pozicia: string,
     fa: Fa,
     oblast: string,
@@ -17,7 +19,7 @@ export type EmployeeData = {
 
 export enum Fa {
     GEFCO = 'GEFCO',
-    LEASING = 'Leasing',
+    LEASING = 'leasing',
     AGENTURA = 'Agentura'
 }
 
@@ -28,7 +30,7 @@ export enum Pravomoc {
 
 export enum Kava {
     ANO = 'true',
-    NIE = 'false'
+    NIE = 'false',
 }
 
 export enum COLUMN_NAME  {
@@ -66,7 +68,7 @@ export type SkoleniaRow = {
 
 export type Oblast = {
   id: number;
-  meno: string;
+  oblast: string;
 };
 
 
