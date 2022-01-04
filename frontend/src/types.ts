@@ -88,10 +88,10 @@ export type SkolenieZamestnanca = {
 };
 
 export type Skolenie = {
-  id: number;
+  id: number | null;
   nazov: string;
   kod_skolenia: string;
-  dlzka_platnosti: number;
+  dlzka_platnosti: number | null;
   oblast: string;
   popis: string;
 };

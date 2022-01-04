@@ -1,5 +1,5 @@
 import { getStore, setStore } from "../store/store";
-import { EmployeeData, Oblast } from "../types";
+import { EmployeeData, Oblast, Skolenie } from "../types";
 
 const be: string = process.env.REACT_APP_BACKEND_ADDRESS || "";
 
@@ -69,6 +69,67 @@ export const removeEmployee = async (id: number) => {
     .then(
       (_) => {
         fetchEmployees();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+};
+
+export const fetchSkolenia = () => {
+  fetch("/skolenia", {
+    method: "get",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        const store = getStore();
+        const data: Skolenie[] = result;
+        store.skolenia = data;
+        setStore(store);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+};
+
+export const upravSkolenie = (skolenie: Skolenie) => {
+  fetch("upravskolenie", {
+    method: "put",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(skolenie),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        fetchSkolenia();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+};
+
+export const pridajSkolenie = (skolenie: Skolenie) => {
+  fetch("/pridajskolenie", {
+    method: "post",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(skolenie),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        fetchSkolenia();
       },
       (error) => {
         console.log(error);

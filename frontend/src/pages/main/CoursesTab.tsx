@@ -1,8 +1,22 @@
+import { Box, TextField, Button } from "@mui/material";
+import { useState } from "react";
+import { pridajSkolenie, upravSkolenie } from "../../helpers/requests";
 import { getStore } from "../../store/store";
+import { Skolenie } from "../../types";
 import CoursesTableWrapper from "../components/CoursesTableWrapper";
+import SkolenieModal from "../components/SkolenieModal";
+import UpravSkolenieModal from "../components/UpravSkolenieModal";
 
 const CoursesTab = () => {
   const { skoleniaZamestnancov } = getStore();
+
+  const [nameInput, setNameInput] = useState<string>("");
+  const [surnameInput, setSurnameInput] = useState<string>("");
+  const [skolenieInput, setSkolenieInput] = useState<string>("");
+  const [showAddSkolenieModal, setShowAddSkolenieModal] =
+    useState<boolean>(false);
+  const [showUpravSkolenieModal, setShowUpravSkolenieModal] =
+    useState<boolean>(false);
 
   const columns = Object.keys(skoleniaZamestnancov[0] || []).map((k) => {
     return {
@@ -12,7 +26,57 @@ const CoursesTab = () => {
       format: null,
     };
   });
-  return <CoursesTableWrapper columns={columns} rows={skoleniaZamestnancov} />;
+  return (
+    <>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        style={{ width: "fit-content" }}
+      >
+        <Box display={"flex"} flexDirection={"row"}>
+          <TextField
+            id="Meno"
+            label="Meno"
+            defaultValue=""
+            onChange={(e) => setNameInput(e.target.value.toLowerCase())}
+          />
+          <TextField
+            id="Priezvisko"
+            label="Priezvisko"
+            defaultValue=""
+            onChange={(e) => setSurnameInput(e.target.value.toLowerCase())}
+          />
+          <TextField
+            id="Skolenie"
+            label="Skolenie"
+            defaultValue=""
+            onChange={(e) => setSkolenieInput(e.target.value.toLowerCase())}
+          />
+          <Button
+            onClick={() => setShowAddSkolenieModal(true)}
+            variant="contained"
+          >
+            Pridaj skolenie
+          </Button>
+          <Button
+            onClick={() => setShowUpravSkolenieModal(true)}
+            variant="contained"
+          >
+            Uprav skolenie
+          </Button>
+        </Box>
+        <CoursesTableWrapper columns={columns} rows={skoleniaZamestnancov} />
+      </Box>
+      <SkolenieModal
+        open={showAddSkolenieModal}
+        handleClose={() => setShowAddSkolenieModal(false)}
+      />
+      <UpravSkolenieModal
+        open={showUpravSkolenieModal}
+        handleClose={() => setShowUpravSkolenieModal(false)}
+      />
+    </>
+  );
 };
 
 export default CoursesTab;
