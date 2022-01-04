@@ -1,8 +1,7 @@
 export type EmployeeData = {
+  id: number | null;
   meno: string;
   priezvisko: string;
-  // pravomoc: Pravomoc,
-  // oblasti?: string[],
   VZV: string | null;
   datum_vydania: Date | null;
   pozicia: string;

@@ -39,6 +39,7 @@ export const CoursesBeforeExpireColumns: Column[] = [
 ];
 
 export const initialEmployee: EmployeeData = {
+  id: null,
   meno: "",
   priezvisko: "",
   // pravomoc: Pravomoc.PRACOVNIK,
