@@ -112,10 +112,17 @@ app.put('/upravzamestnanca', async (req, res)=> {
     const id = req.body.id
     const zamestnanec = JSON.parse(JSON.stringify(req.body, reversedReplacer));
     try {
+        await pool.query('BEGIN')
+        const ob = await pool.query('Select * from oblast WHERE oblast=$1',[zamestnanec.oblast])
+        if (ob.rowCount === 0){
+            await pool.query(`insert into oblast(oblast) values($1)`,[zamestnanec.oblast])
+        }
         const queryText = 'UPDATE zamestnanci SET priezvisko=$1, meno=$2, pozicia=$3, fa=$4, oblast=$5, karticka=$6, osobne_cislo=$7, kava=$8, vzv=$9, datum_vydania=$10, bufetka=$11, zfsatna=$12, zfskrinka=$13, winnex=$14 WHERE id=$15'
         await pool.query(queryText, [zamestnanec.priezvisko, zamestnanec.meno, zamestnanec.pozicia, zamestnanec.fa, zamestnanec.oblast, zamestnanec.karticka, zamestnanec.osobne_cislo, zamestnanec.kava, zamestnanec.vzv, zamestnanec.datum_vydania, zamestnanec.bufetka, zamestnanec.zfsatna, zamestnanec.zfskrinka, zamestnanec.winnex, id])
+        await pool.query('COMMIT')
         res.status(200).send({message:'UPDATE was successful'})
     }catch (e){
+        await pool.query('ROLLBACK')
         res.status(400).send({message:'UPDATE was not successful'})
     }
 })
@@ -146,6 +153,67 @@ app.post('/pridajzamestnanca', async (req, res)=> {
     catch (e) {
         await pool.query('ROLLBACK')
         res.status(400).send({message:'Insertion was not successful'})
+    }
+})
+
+app.get('/skolenia', async (req, res, next) => {
+    const testData = await pool.query('Select * from skolenia')
+    data = JSON.parse(JSON.stringify(testData.rows, replacer));
+    res.send(data);
+})
+
+app.get('/skoleniebyid', async (req, res, next) => {
+    const id = req.body.id
+    const testData = await pool.query('Select * FROM skolenia WHERE id=$1', [id])
+    data = JSON.parse(JSON.stringify(testData.rows, replacer));
+    res.status(200).send(data);
+})
+
+app.delete('/zmazskolenie', async (req, res)=> {
+    const id = req.body.id
+    try {
+        await pool.query('DELETE FROM skolenia WHERE id=$1', [id])
+        res.status(200).send({message:'DELETE was successful'})
+    }catch (e){
+        res.status(400).send({message:'DELETE was not successful'})
+    }
+})
+
+app.post('/pridajskolenie', async (req, res)=> {
+    const skolenie = JSON.parse(JSON.stringify(req.body, reversedReplacer));
+    try{
+        await pool.query('BEGIN')
+        const ob = await pool.query('Select * from oblast WHERE oblast=$1',[skolenie.oblast])
+        if (ob.rowCount === 0){
+            await pool.query(`insert into oblast(oblast) values($1)`,[skolenie.oblast])
+        }
+        const queryText = 'INSERT INTO skolenia(kod_skolenia, nazov, dlzka_platnosti, oblast, popis) VALUES($1, $2, $3, $4, $5)'
+        await pool.query(queryText, [skolenie.kod_skolenia, skolenie.nazov, skolenie.dlzka_platnosti, skolenie.oblast, skolenie.popis])
+        await pool.query('COMMIT')
+        res.status(200).send({message:'Insertion was successful'})
+    }
+    catch (e) {
+        await pool.query('ROLLBACK')
+        res.status(400).send({message:'Insertion was not successful'})
+    }
+})
+
+app.put('/upravskolenie', async (req, res)=> {
+    const id = req.body.id
+    const skolenie = JSON.parse(JSON.stringify(req.body, reversedReplacer));
+    try {
+        await pool.query('BEGIN')
+        const ob = await pool.query('Select * from oblast WHERE oblast=$1',[skolenie.oblast])
+        if (ob.rowCount === 0){
+            await pool.query(`insert into oblast(oblast) values($1)`,[skolenie.oblast])
+        }
+        const queryText = 'UPDATE skolenia SET kod_skolenia=$1, nazov=$2, dlzka_platnosti=$3, oblast=$4, popis=$5 WHERE id=$6'
+        await pool.query(queryText, [skolenie.kod_skolenia, skolenie.nazov, skolenie.dlzka_platnosti, skolenie.oblast, skolenie.popis, id])
+        await pool.query('COMMIT')
+        res.status(200).send({message:'UPDATE was successful'})
+    }catch (e){
+        await pool.query('ROLLBACK')
+        res.status(400).send({message:'UPDATE was not successful' + e.message})
     }
 })
 
