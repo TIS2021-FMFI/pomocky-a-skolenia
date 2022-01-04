@@ -65,7 +65,6 @@ const UpravSkolenieModal = ({ open, handleClose }: UpravSkolenieModalProps) => {
                     disabled={!!!values.id}
                   />
                 </Box>
-                <div>{JSON.stringify(values)}</div>
                 <MyTextField name="popis" disabled={!!!values.id} />
                 <Box display={"flex"} justifyContent={"space-between"}>
                   <Button disabled={!isValid} type="submit" variant="contained">
