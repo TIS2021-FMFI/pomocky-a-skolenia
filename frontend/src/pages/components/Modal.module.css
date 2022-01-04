@@ -1,0 +1,19 @@
+/* .wh{
+    background-color: white;
+    width: 30%;
+    margin: auto;
+    padding: 5% 10%;
+} */
+
+.wh{
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: white;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 4em;
+  /* overflow: scroll; */
+}

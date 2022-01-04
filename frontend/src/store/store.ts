@@ -1,4 +1,4 @@
-import {DUMMY_SKOLENIA } from "../testData";
+import { DUMMY_SKOLENIA } from "../testData";
 import { EmployeeData, Oblast, SkoleniaZamestnanca } from "../types";
 
 export type Store = {

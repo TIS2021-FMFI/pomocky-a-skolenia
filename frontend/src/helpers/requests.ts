@@ -3,7 +3,7 @@ import { EmployeeData, Oblast } from "../types";
 
 const be: string = process.env.REACT_APP_BACKEND_ADDRESS || "";
 
-export const fetchEmployees = async () => {
+export const fetchEmployees = () => {
   fetch("/zamestnanci", {
     method: "get",
     headers: {
@@ -19,9 +19,6 @@ export const fetchEmployees = async () => {
         store.zamestnanci = data;
         setStore(store);
       },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
       (error) => {
         console.log(error);
       }
@@ -54,9 +51,25 @@ export const addEmployee = (employee: EmployeeData) => {
       (result) => {
         fetchEmployees();
       },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
+      (error) => {
+        console.log(error);
+      }
+    );
+};
+
+export const removeEmployee = async (id: number) => {
+  await fetch("/zmazzamestnanca", {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  })
+    .then((res) => res.json())
+    .then(
+      (_) => {
+        fetchEmployees();
+      },
       (error) => {
         console.log(error);
       }

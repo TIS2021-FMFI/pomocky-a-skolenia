@@ -13,7 +13,7 @@ import { addEmployeeSchema } from "../../schemas";
 import { EmployeeData, Fa, Kava } from "../../types";
 import { keyToText as k } from "../../helpers/keysToText";
 
-import styles from "./AddEmployeeModal.module.css";
+import styles from "./Modal.module.css";
 import { getStore } from "../../store/store";
 import DropdownWithAdd from "./DropdownWithAdd";
 import DatePicker from "./DatePicker";

@@ -6,6 +6,7 @@ import EmployeeTableWrapper from "../components/EmployeeTableWrapper";
 import { getStore } from "../../store/store";
 import { initialEmployee } from "../../constants";
 import { addEmployee, fetchEmployees } from "../../helpers/requests";
+import RemoveEmployeeModal from "../components/RemoveEmployeeModal";
 
 const EmployeeTab = () => {
   const { zamestnanci } = getStore();
@@ -17,8 +18,11 @@ const EmployeeTab = () => {
     useState<boolean>(false);
   const [showEditEmployeeModal, setShowEditEmployeeModal] =
     useState<boolean>(false);
-  const [editEmployeeDate, setEditEmployeeData] =
+  const [editEmployeeData, setEditEmployeeData] =
     useState<EmployeeData>(initialEmployee);
+  const [showRemoveEmployeeModal, setShowRemoveEmployeeModal] =
+    useState<boolean>(false);
+  const [removeEmployeeData, setRemoveEmployeeData] = useState<any>({});
 
   const columns = Object.keys(zamestnanci.length > 0 ? zamestnanci[0] : []).map(
     (k) => {
@@ -40,6 +44,7 @@ const EmployeeTab = () => {
 
   if (zamestnanci.length === 0) {
     fetchEmployees();
+    setSkolenieInput("");
   }
 
   const [columnsToShow, setColumnsToShow] = useState(columns);
@@ -81,6 +86,11 @@ const EmployeeTab = () => {
     setShowEditEmployeeModal(true);
   };
 
+  const handleRemoveEmployee = (data: any) => {
+    setRemoveEmployeeData(data);
+    setShowRemoveEmployeeModal(true);
+  };
+
   return (
     <>
       <Box
@@ -118,6 +128,7 @@ const EmployeeTab = () => {
           rows={dataToShow}
           columns={columnsToShow}
           handleEditEmployee={handleEditEmployee}
+          handleRemoveEmployee={handleRemoveEmployee}
         />
       </Box>
       <EmployeeModal
@@ -128,8 +139,16 @@ const EmployeeTab = () => {
       <EmployeeModal
         open={showEditEmployeeModal}
         handleClose={() => setShowEditEmployeeModal(false)}
-        initialData={editEmployeeDate}
+        initialData={editEmployeeData}
         handleSubmit={handleAddEmployee}
+      />
+      <RemoveEmployeeModal
+        handleClose={() => {
+          setShowRemoveEmployeeModal(false);
+          setDataToShow(zamestnanci);
+        }}
+        open={showRemoveEmployeeModal}
+        employee={removeEmployeeData}
       />
     </>
   );

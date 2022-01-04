@@ -14,12 +14,14 @@ type TableProps = {
   columns: any[];
   rows: any[];
   handleEditEmployee: (rowData: EmployeeData) => void;
+  handleRemoveEmployee: (rowData: EmployeeData) => void;
 };
 
 const EmployeeTableWrapper = ({
   columns,
   rows,
   handleEditEmployee,
+  handleRemoveEmployee,
 }: TableProps) => {
   const memTable = useMemo(() => {
     return (
@@ -54,7 +56,11 @@ const EmployeeTableWrapper = ({
                           >
                             Uprav
                           </Button>
-                          <Button variant="contained" size="small">
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() => handleRemoveEmployee(row)}
+                          >
                             Odstráň
                           </Button>
                         </Box>
