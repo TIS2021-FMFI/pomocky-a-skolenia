@@ -75,14 +75,23 @@ type baseType = {
   priezvisko: string;
   osobneCislo: number;
 };
-type restType = { [key: string]: Skolenie | string | number };
+type restType = { [key: string]: SkolenieZamestnanca | string | number };
 export type SkoleniaZamestnanca = Omit<restType, keyof baseType> & baseType;
 
-export type Skolenie = {
+export type SkolenieZamestnanca = {
   datum: Date;
   nazov: string;
   kod: string;
   oblast: string;
   dlzka_platnosti: number;
+  popis: string;
+};
+
+export type Skolenie = {
+  id: number;
+  nazov: string;
+  kod_skolenia: string;
+  dlzka_platnosti: number;
+  oblast: string;
   popis: string;
 };
