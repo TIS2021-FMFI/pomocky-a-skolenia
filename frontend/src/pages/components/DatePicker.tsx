@@ -35,6 +35,7 @@ const DatePicker = ({
         inputFormat="dd.MM.yyyy"
         value={value}
         onChange={handleChange}
+        mask="__.__.____"
         renderInput={(params) => <TextField sx={sx} {...params} />}
       />
     </LocalizationProvider>
