@@ -1,8 +1,7 @@
 export type EmployeeData = {
+  id: number | null;
   meno: string;
   priezvisko: string;
-  // pravomoc: Pravomoc,
-  // oblasti?: string[],
   VZV: string | null;
   datum_vydania: Date | null;
   pozicia: string;
@@ -76,14 +75,23 @@ type baseType = {
   priezvisko: string;
   osobneCislo: number;
 };
-type restType = { [key: string]: Skolenie | string | number };
+type restType = { [key: string]: SkolenieZamestnanca | string | number };
 export type SkoleniaZamestnanca = Omit<restType, keyof baseType> & baseType;
 
-export type Skolenie = {
+export type SkolenieZamestnanca = {
   datum: Date;
   nazov: string;
   kod: string;
   oblast: string;
   dlzka_platnosti: number;
+  popis: string;
+};
+
+export type Skolenie = {
+  id: number | null;
+  nazov: string;
+  kod_skolenia: string;
+  dlzka_platnosti: number | null;
+  oblast: string;
   popis: string;
 };

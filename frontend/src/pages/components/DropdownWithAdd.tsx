@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 
 type DropdownWithAddProps = {
   options: Option[];
-  initialValue: Option | null;
+  value: Option | null;
   setData: (s: string) => void;
+  disabled?: boolean;
+  setOblast: (o: Option | null) => void;
 };
 
 type Option = {
@@ -18,9 +20,10 @@ const filter = createFilterOptions<Option>();
 const DropdownWithAdd = ({
   options,
   setData,
-  initialValue,
+  value,
+  disabled,
+  setOblast,
 }: DropdownWithAddProps) => {
-  const [value, setValue] = useState<Option | null>(initialValue);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -35,18 +38,18 @@ const DropdownWithAdd = ({
       value={value}
       onChange={(event, newValue) => {
         if (typeof newValue === "string") {
-          setValue({
+          setOblast({
             name: newValue,
           });
           setData(newValue);
         } else if (newValue && newValue.inputValue) {
           // Create a new value from the user input
-          setValue({
+          setOblast({
             name: newValue.inputValue,
           });
           setData(newValue.inputValue);
         } else {
-          setValue(newValue);
+          setOblast(newValue);
           setData(newValue?.name || "");
         }
       }}
@@ -68,7 +71,7 @@ const DropdownWithAdd = ({
       selectOnFocus
       clearOnBlur
       handleHomeEndKeys
-      fullWidth={true}
+      disabled={disabled}
       id="free-solo-with-text-demo"
       options={options}
       getOptionLabel={(option) => {
@@ -91,6 +94,7 @@ const DropdownWithAdd = ({
           placeholder={"Oblasť"}
           helperText={error}
           error={!!error}
+          value={value}
         />
       )}
     />

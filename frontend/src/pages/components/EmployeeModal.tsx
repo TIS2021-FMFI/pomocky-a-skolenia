@@ -1,53 +1,27 @@
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  Modal,
-  Radio,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { FieldAttributes, Form, Formik, useField } from "formik";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import { Form, Formik } from "formik";
 import { initialEmployee } from "../../constants";
 import { addEmployeeSchema } from "../../schemas";
 import { EmployeeData, Fa, Kava } from "../../types";
-import { keyToText as k } from "../../helpers/keysToText";
 
 import styles from "./Modal.module.css";
 import { getStore } from "../../store/store";
 import DropdownWithAdd from "./DropdownWithAdd";
 import DatePicker from "./DatePicker";
-
-type MyRadioProps = { label: string } & FieldAttributes<{}>;
-
-const MyRadio: React.FC<MyRadioProps> = ({ label, ...props }) => {
-  const [field] = useField<{}>(props);
-  return <FormControlLabel {...field} control={<Radio />} label={label} />;
-};
-
-const MyTextField: React.FC<FieldAttributes<{}>> = ({ name, ...props }) => {
-  const [field, meta] = useField<{}>({ ...props, name });
-  const errorText = meta.error ? meta.error : "";
-  return (
-    <Box display={"flex"} flexDirection={"row"}>
-      <Typography width={120}>{k(name)}</Typography>
-      <TextField
-        placeholder={k(name)}
-        {...field}
-        helperText={errorText}
-        error={!!errorText}
-        sx={{ flexGrow: 1 }}
-        disabled={props.disabled}
-      />
-    </Box>
-  );
-};
+import MyTextField from "./MyTextField";
+import MyRadio from "./MyRadio";
+import { useState } from "react";
 
 type EmployeeModalProps = {
   open: boolean;
   handleClose: () => void;
   handleSubmit: (value: EmployeeData) => void;
   initialData?: EmployeeData;
+};
+
+type Option = {
+  inputValue?: string;
+  name: string;
 };
 
 const EmployeeModal = ({
@@ -57,7 +31,8 @@ const EmployeeModal = ({
   initialData,
 }: EmployeeModalProps) => {
   const { oblasti } = getStore();
-  console.log(initialData);
+
+  const [oblast, setOblast] = useState<Option | null>(null);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -100,9 +75,8 @@ const EmployeeModal = ({
                   <DropdownWithAdd
                     options={oblasti.map((o) => ({ name: o.oblast }))}
                     setData={(data: string) => setFieldValue("oblast", data)}
-                    initialValue={
-                      values.oblast ? { name: values.oblast } : null
-                    }
+                    value={oblast}
+                    setOblast={setOblast}
                   />
                 </Box>
 

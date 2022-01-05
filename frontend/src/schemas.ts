@@ -14,3 +14,12 @@ export const addEmployeeSchema = yup.object({
   zfskrinka: yup.number().nullable(),
   winnex: yup.number().nullable(),
 });
+
+export const skolenieSchema = yup.object({
+  id: yup.number().nullable(),
+  nazov: yup.string().required(),
+  kod_skolenia: yup.string().required(),
+  oblast: yup.string().required(),
+  dlzka_platnosti: yup.number().required(),
+  popis: yup.string().nullable(),
+});

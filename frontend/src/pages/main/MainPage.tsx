@@ -1,6 +1,10 @@
 import { Tab, Tabs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { fetchEmployees, fetchRegions } from "../../helpers/requests";
+import {
+  fetchEmployees,
+  fetchRegions,
+  fetchSkolenia,
+} from "../../helpers/requests";
 import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
 import CoursesTab from "./CoursesTab";
 import EmployeeTab from "./EmployeeTab";
@@ -12,6 +16,7 @@ const MainPage = () => {
   useEffect(() => {
     fetchEmployees();
     fetchRegions();
+    fetchSkolenia();
   }, []);
 
   const theme = useTheme();
