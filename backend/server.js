@@ -217,6 +217,77 @@ app.put('/upravskolenie', async (req, res)=> {
     }
 })
 
+function skolenieParser(skolenia) {
+    const idcka = new Set()
+    for (let i = 0; i < skolenia.length; i++) {
+
+        idcka.add(skolenia[i].id)
+    }
+
+    let final = []
+    idcka.forEach(id => {
+        const z = skolenia.filter(function (entry){
+            return entry.id===id
+        })
+        var j = {}
+        j["id"] = z[0].id
+        j["meno"] = z[0].meno
+        j["priezvisko"] = z[0].priezvisko
+        j["oblast"] = z[0].oblast
+        for (let i = 0; i < z.length; i++) {
+            j[z[i].kod_skolenia] = z[i].datum_absolvovania
+        }
+        final.push(j)
+    })
+    return final
+}
+
+app.get('/vsetkyskolenia', async (req, res, next) => {
+    const testData = await pool.query('SELECT zamestnanci.id, datum_absolvovania, meno, priezvisko, zamestnanci.oblast ,kod_skolenia FROM zamestnanci_skolenia LEFT JOIN zamestnanci ON zamestnanci_skolenia.id_zamestnanca = zamestnanci.id LEFT JOIN skolenia ON skolenia.id = zamestnanci_skolenia.id_skolenia')
+    data = skolenieParser(testData.rows)
+    newdata = JSON.parse(JSON.stringify(data, replacer));
+    res.status(200).send(newdata);
+})
+
+app.get('/konciaceskolenia', async (req, res, next) => {
+    const testData = await pool.query('SELECT zamestnanci.id as id_zamestnanca, datum_absolvovania, meno, priezvisko, karticka, zamestnanci.oblast , kod_skolenia, skolenia.id as id_skolenia ,(datum_absolvovania + interval \'1 month\' * dlzka_platnosti) AS koniec_platnosti, dlzka_platnosti FROM zamestnanci_skolenia LEFT JOIN zamestnanci ON zamestnanci_skolenia.id_zamestnanca = zamestnanci.id LEFT JOIN skolenia ON skolenia.id = zamestnanci_skolenia.id_skolenia WHERE (datum_absolvovania + interval \'1 month\' * (dlzka_platnosti - 2)) < now()')
+    newdata = JSON.parse(JSON.stringify(testData.rows, replacer));
+    res.status(200).send(newdata);
+})
+
+app.post('/pridajskoleniezamestnancom',async (req, res)=> {
+    const id_zamestnancov = req.body.id_zamestnancov
+    const id_skolenia = req.body.id_skolenia
+    const datum = req.body.datum_absolvovania
+    try{
+        const queryText = 'INSERT INTO zamestnanci_skolenia(id_zamestnanca, id_skolenia, datum_absolvovania) VALUES($1, $2, $3)'
+        for (const id_zamestnanca of id_zamestnancov) {
+            await pool.query('BEGIN')
+            pool.query(queryText, [id_zamestnanca, id_skolenia, datum])
+            await pool.query('COMMIT')
+        }
+        res.status(200).send({message:'Insertion was successful'})
+    }
+    catch (e) {
+        await pool.query('ROLLBACK')
+        res.status(400).send({message:'Insertion was not successful'})
+    }
+})
+
+app.put('/upravskoleniezamestnancovi', async (req, res)=> {
+    const id_zamestnanca = req.body.id_zamestnanca
+    const id_skolenia = req.body.id_skolenia
+    const skolenie = JSON.parse(JSON.stringify(req.body, reversedReplacer));
+    const datum = skolenie.datum
+    try {
+        const queryText = 'UPDATE zamestnanci_skolenia SET datum_absolvovania=$1 WHERE id_zamestnanca=$2 AND id_skolenia=$3'
+        await pool.query(queryText, [datum, id_zamestnanca, id_skolenia])
+        res.status(200).send({message:'UPDATE was successful'})
+    }catch (e){
+        res.status(400).send({message:'UPDATE was not successful' + e.message})
+    }
+})
+
 // Require the Routes API  
 // Create a Server and run it on the port 9000
 const server = app.listen(9000, function () {
