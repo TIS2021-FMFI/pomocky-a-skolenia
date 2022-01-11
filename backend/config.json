@@ -1,0 +1,12 @@
+{
+  "DATABASE": {
+    "USER": "ggqxjolq",
+    "HOST": "abul.db.elephantsql.com",
+    "DATABASE": "ggqxjolq",
+    "PASSWORD": "M-hueRYiWJK11fJjxL2HNEImG18jkliD",
+    "DIALECT": "postgres",
+    "PORT": 5432
+  },
+  "API_PORT": 9000,
+  "SECRET.KEY": "secret"
+}
