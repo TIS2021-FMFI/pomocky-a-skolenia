@@ -1,15 +1,16 @@
-import { Autocomplete, Chip, TextField } from "@mui/material";
-import { getStore } from "../../store/store";
+import { Autocomplete, Chip, TextField } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../app/store'
 
 type MultiSelectProps = {
-  data: any[];
-  setData: (data: any[]) => void;
-  disabled: boolean;
-  name: string;
-};
+  data: any[]
+  setData: (data: any[]) => void
+  disabled: boolean
+  name: string
+}
 
 const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
-  const { oblasti } = getStore();
+  const oblasti = useSelector((state: RootState) => state.oblasti.value)
 
   return (
     <div>
@@ -17,7 +18,7 @@ const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
         value={data}
         disabled={disabled}
         onChange={(event, newValue) => {
-          setData(newValue);
+          setData(newValue)
         }}
         multiple
         id="tags-filled"
@@ -44,7 +45,7 @@ const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
         )}
       />
     </div>
-  );
-};
+  )
+}
 
-export default MultiSelect;
+export default MultiSelect

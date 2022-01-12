@@ -1,24 +1,27 @@
-import { Box, Button } from "@mui/material";
-import { useState } from "react";
-import { getStore } from "../../store/store";
-import CoursesTableWrapper from "../components/CoursesTableWrapper";
-import PridajSkolenieZamestnancoviModal from "../components/PridajSkolenieZamestnancoviModal";
-import SkolenieModal from "../components/SkolenieModal";
-import UpravSkolenieModal from "../components/UpravSkolenieModal";
+import { Box, Button } from '@mui/material'
+import { useState } from 'react'
+import { RootState } from '../../app/store'
+import CoursesTableWrapper from '../components/CoursesTableWrapper'
+import PridajSkolenieZamestnancoviModal from '../components/PridajSkolenieZamestnancoviModal'
+import SkolenieModal from '../components/SkolenieModal'
+import UpravSkolenieModal from '../components/UpravSkolenieModal'
+import { useSelector } from 'react-redux'
 
 const CoursesTab = () => {
-  const { skoleniaZamestnancov } = getStore();
+  const skoleniaZamestnancov = useSelector(
+    (state: RootState) => state.skoleniaZamestnancov.value
+  )
 
   // const [nameInput, setNameInput] = useState<string>("");
   // const [surnameInput, setSurnameInput] = useState<string>("");
   // const [skolenieInput, setSkolenieInput] = useState<string>("");
   const [showAddSkolenieModal, setShowAddSkolenieModal] =
-    useState<boolean>(false);
+    useState<boolean>(false)
   const [showUpravSkolenieModal, setShowUpravSkolenieModal] =
-    useState<boolean>(false);
+    useState<boolean>(false)
 
   const [showPridajSkolenieZamestnancovi, setShowPridajSkolenieZamestnancovi] =
-    useState<boolean>(false);
+    useState<boolean>(false)
 
   const columns = Object.keys(skoleniaZamestnancov[0] || []).map((k) => {
     return {
@@ -26,16 +29,16 @@ const CoursesTab = () => {
       label: k,
       minWidth: 120,
       format: null,
-    };
-  });
+    }
+  })
   return (
     <>
       <Box
-        display={"flex"}
-        flexDirection={"column"}
-        style={{ width: "fit-content" }}
+        display={'flex'}
+        flexDirection={'column'}
+        style={{ width: 'fit-content' }}
       >
-        <Box display={"flex"} flexDirection={"row"}>
+        <Box display={'flex'} flexDirection={'row'}>
           {/* <TextField
             id="Meno"
             label="Meno"
@@ -88,7 +91,7 @@ const CoursesTab = () => {
         handleClose={() => setShowPridajSkolenieZamestnancovi(false)}
       />
     </>
-  );
-};
+  )
+}
 
-export default CoursesTab;
+export default CoursesTab

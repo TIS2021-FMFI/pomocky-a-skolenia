@@ -1,28 +1,29 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
-import { Form, Formik } from "formik";
-import { initialEmployee } from "../../constants";
-import { addEmployeeSchema } from "../../schemas";
-import { EmployeeData, Fa, Kava } from "../../types";
+import { Box, Button, Modal, Typography } from '@mui/material'
+import { Form, Formik } from 'formik'
+import { initialEmployee } from '../../constants'
+import { addEmployeeSchema } from '../../schemas'
+import { EmployeeData, Fa, Kava } from '../../types'
 
-import styles from "./Modal.module.css";
-import { getStore } from "../../store/store";
-import DropdownWithAdd from "./DropdownWithAdd";
-import DatePicker from "./DatePicker";
-import MyTextField from "./MyTextField";
-import MyRadio from "./MyRadio";
-import { useState } from "react";
+import styles from './Modal.module.css'
+import DropdownWithAdd from './DropdownWithAdd'
+import DatePicker from './DatePicker'
+import MyTextField from './MyTextField'
+import MyRadio from './MyRadio'
+import { useState } from 'react'
+import { RootState } from '../../app/store'
+import { useSelector } from 'react-redux'
 
 type EmployeeModalProps = {
-  open: boolean;
-  handleClose: () => void;
-  handleSubmit: (value: EmployeeData) => void;
-  initialData?: EmployeeData;
-};
+  open: boolean
+  handleClose: () => void
+  handleSubmit: (value: EmployeeData) => void
+  initialData?: EmployeeData
+}
 
 type Option = {
-  inputValue?: string;
-  name: string;
-};
+  inputValue?: string
+  name: string
+}
 
 const EmployeeModal = ({
   open,
@@ -30,9 +31,9 @@ const EmployeeModal = ({
   handleSubmit,
   initialData,
 }: EmployeeModalProps) => {
-  const { oblasti } = getStore();
+  const oblasti = useSelector((state: RootState) => state.oblasti.value)
 
-  const [oblast, setOblast] = useState<Option | null>(null);
+  const [oblast, setOblast] = useState<Option | null>(null)
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -43,13 +44,13 @@ const EmployeeModal = ({
           initialValues={initialData || initialEmployee}
           validationSchema={addEmployeeSchema}
           onSubmit={(data) => {
-            handleSubmit(data);
-            handleClose();
+            handleSubmit(data)
+            handleClose()
           }}
         >
           {({ values, isValid, setFieldValue }) => (
             <Form>
-              <Box display={"flex"} flexDirection={"column"} color="secondary">
+              <Box display={'flex'} flexDirection={'column'} color="secondary">
                 <MyTextField name="priezvisko" />
                 <MyTextField name="meno" />
                 <MyTextField name="osobne_cislo" type="number" />
@@ -59,22 +60,22 @@ const EmployeeModal = ({
                 <MyTextField name="zfskrinka" type="number" />
                 <MyTextField name="winnex" type="number" />
                 <MyTextField name="pozicia" type="string" />
-                <Box display={"flex"} flexDirection={"row"}>
+                <Box display={'flex'} flexDirection={'row'}>
                   <MyTextField name="VZV" type="string" />
                   <DatePicker
                     sx={{ flexGrow: 1 }}
                     disabled={!!!values.VZV}
                     setData={(datum: Date | null) =>
-                      setFieldValue("datum_vydania", datum)
+                      setFieldValue('datum_vydania', datum)
                     }
                     initialValue={values.datum_vydania}
                   />
                 </Box>
-                <Box display={"flex"} flexDirection={"row"}>
+                <Box display={'flex'} flexDirection={'row'}>
                   <Typography width={120}>Oblasť</Typography>
                   <DropdownWithAdd
                     options={oblasti.map((o) => ({ name: o.oblast }))}
-                    setData={(data: string) => setFieldValue("oblast", data)}
+                    setData={(data: string) => setFieldValue('oblast', data)}
                     value={oblast}
                     setOblast={setOblast}
                   />
@@ -105,16 +106,16 @@ const EmployeeModal = ({
                     name="kava"
                     type="radio"
                     value={Kava.ANO}
-                    label={"Áno"}
+                    label={'Áno'}
                   />
                   <MyRadio
                     name="kava"
                     type="radio"
                     value={Kava.NIE}
-                    label={"Nie"}
+                    label={'Nie'}
                   />
                 </Box>
-                <Box display={"flex"} justifyContent={"space-between"}>
+                <Box display={'flex'} justifyContent={'space-between'}>
                   <Button disabled={!isValid} type="submit" variant="contained">
                     submit
                   </Button>
@@ -128,7 +129,7 @@ const EmployeeModal = ({
         </Formik>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default EmployeeModal;
+export default EmployeeModal

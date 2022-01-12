@@ -1,26 +1,26 @@
-import { Tab, Tabs, Grid, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Tab, Tabs, Grid, useMediaQuery, useTheme } from '@mui/material'
+import { useEffect, useState } from 'react'
 import {
   fetchEmployees,
   fetchRegions,
   fetchSkolenia,
-} from "../../helpers/requests";
-import CoursesBeforeExpireTab from "./CoursesBeforeExpireTab";
-import CoursesTab from "./CoursesTab";
-import EmployeeTab from "./EmployeeTab";
-import styles from "./MainPage.module.css";
+} from '../../helpers/requests'
+import CoursesBeforeExpireTab from './CoursesBeforeExpireTab'
+import CoursesTab from './CoursesTab'
+import EmployeeTab from './EmployeeTab'
+import styles from './MainPage.module.css'
 
 const MainPage = () => {
-  const [tabValue, setTabValue] = useState<number>(0);
+  const [tabValue, setTabValue] = useState<number>(0)
 
   useEffect(() => {
-    fetchEmployees();
-    fetchRegions();
-    fetchSkolenia();
-  }, []);
+    fetchEmployees()
+    fetchRegions()
+    fetchSkolenia()
+  }, [])
 
-  const theme = useTheme();
-  const largeScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const theme = useTheme()
+  const largeScreen = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <>
@@ -62,11 +62,6 @@ const MainPage = () => {
               color={'secondary.contrastText'}
               onClick={() => setTabValue(2)}
             />
-            <Tab
-              label="Skolenia"
-              color={'secondary.contrastText'}
-              onClick={() => setTabValue(2)}
-            />
           </Tabs>
         </Grid>
         <Grid
@@ -79,10 +74,9 @@ const MainPage = () => {
           {tabValue === 0 && <CoursesBeforeExpireTab />}
           {tabValue === 1 && <EmployeeTab />}
           {tabValue === 2 && <CoursesTab />}
-          
         </Grid>
       </Grid>
     </>
   )
-};
-export default MainPage;
+}
+export default MainPage

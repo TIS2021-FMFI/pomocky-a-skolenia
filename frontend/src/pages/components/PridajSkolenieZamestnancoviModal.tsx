@@ -1,31 +1,35 @@
-import { Modal, Box, Button, Autocomplete, TextField } from "@mui/material";
-import { Formik, Form } from "formik";
-import SkoleniaDropdown from "./SkoleniaDropdown";
-import DatePicker from "./DatePicker";
-import { useState } from "react";
-import { getStore } from "../../store/store";
-import { EmployeeData } from "../../types";
+import { Modal, Box, Button, Autocomplete, TextField } from '@mui/material'
+import { Formik, Form } from 'formik'
+import SkoleniaDropdown from './SkoleniaDropdown'
+import DatePicker from './DatePicker'
+import { useState } from 'react'
+import { EmployeeData } from '../../types'
 
-import styles from "./Modal.module.css";
+import styles from './Modal.module.css'
+import { RootState } from '../../app/store'
+import { useSelector } from 'react-redux'
 
 type PridajSkolenieZamestnancoviModalProps = {
-  open: boolean;
-  handleClose: () => void;
-};
+  open: boolean
+  handleClose: () => void
+}
 
 const PridajSkolenieZamestnancoviModal = ({
   open,
   handleClose,
 }: PridajSkolenieZamestnancoviModalProps) => {
-  const [skolenieId, setSkolenieId] = useState<number | null>(null);
-  const [zamestnanciId, setZamestnanciId] = useState<number[]>([]);
-  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
+  const [skolenieId, setSkolenieId] = useState<number | null>(null)
+  const [zamestnanciId, setZamestnanciId] = useState<number[]>([])
+  const [date, setDate] = useState<Date | null>(new Date(Date.now()))
 
-  const { skolenia, zamestnanci } = getStore();
+  const { skolenia, zamestnanci } = useSelector((state: RootState) => ({
+    skolenia: state.skolenia.value,
+    zamestnanci: state.zamestnanci.value,
+  }))
 
   const getLabel = (employee: EmployeeData) => {
-    return `${employee.osobne_cislo} ${employee.meno} ${employee.priezvisko}`;
-  };
+    return `${employee.osobne_cislo} ${employee.meno} ${employee.priezvisko}`
+  }
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -36,18 +40,18 @@ const PridajSkolenieZamestnancoviModal = ({
           initialValues={{}}
           onSubmit={(data) => {
             //add insert to DB here
-            handleClose();
+            handleClose()
           }}
         >
           {({ values, isValid, setFieldValue, setErrors }) => (
             <Form>
               <Box
-                display={"flex"}
-                flexDirection={"column"}
+                display={'flex'}
+                flexDirection={'column'}
                 color="secondary"
                 rowGap={2}
               >
-                <Box display={"flex"} flexDirection={"row"} columnGap={2}>
+                <Box display={'flex'} flexDirection={'row'} columnGap={2}>
                   <SkoleniaDropdown options={skolenia} setId={setSkolenieId} />
                   <DatePicker
                     sx={{ flexGrow: 1 }}
@@ -66,14 +70,14 @@ const PridajSkolenieZamestnancoviModal = ({
                   defaultValue={[]}
                   onChange={(event: any, newValue: EmployeeData[] | null) => {
                     if (newValue === null) {
-                      setZamestnanciId([]);
-                      return;
+                      setZamestnanciId([])
+                      return
                     }
-                    let ids: number[] = [];
+                    let ids: number[] = []
                     newValue.forEach((employee) => {
-                      employee.id && ids.push(employee.id);
-                    });
-                    setZamestnanciId(ids);
+                      employee.id && ids.push(employee.id)
+                    })
+                    setZamestnanciId(ids)
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -83,7 +87,7 @@ const PridajSkolenieZamestnancoviModal = ({
                     />
                   )}
                 />
-                <Box display={"flex"} justifyContent={"space-between"}>
+                <Box display={'flex'} justifyContent={'space-between'}>
                   <Button
                     disabled={
                       !isValid ||
@@ -106,6 +110,6 @@ const PridajSkolenieZamestnancoviModal = ({
         </Formik>
       </div>
     </Modal>
-  );
-};
-export default PridajSkolenieZamestnancoviModal;
+  )
+}
+export default PridajSkolenieZamestnancoviModal
