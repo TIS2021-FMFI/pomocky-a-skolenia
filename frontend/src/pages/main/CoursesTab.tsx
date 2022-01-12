@@ -31,6 +31,9 @@ const CoursesTab = () => {
       format: null,
     }
   })
+
+  console.log(skoleniaZamestnancov)
+
   return (
     <>
       <Box

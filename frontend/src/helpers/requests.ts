@@ -1,7 +1,7 @@
-import { EmployeeData, Skolenie } from '../types'
+import { EmployeeData, Oblast, SkoleniaZamestnanca, Skolenie } from '../types'
 
 export const fetchEmployees = async (): Promise<EmployeeData[]> => {
-  return await fetch('/zamestnanci', {
+  return fetch('/zamestnanci', {
     method: 'get',
     headers: {
       Accept: 'application/json',
@@ -19,8 +19,8 @@ export const fetchEmployees = async (): Promise<EmployeeData[]> => {
     )
 }
 
-export const fetchRegions = async () => {
-  fetch('/oblasti', {
+export const fetchRegions = async (): Promise<Oblast[]> => {
+  return fetch('/oblasti', {
     method: 'get',
   })
     .then((res) => res.json())
@@ -70,8 +70,8 @@ export const removeEmployee = async (id: number) => {
     )
 }
 
-export const fetchSkolenia = () => {
-  fetch('/skolenia', {
+export const fetchSkolenia = (): Promise<Skolenie[]> => {
+  return fetch('/skolenia', {
     method: 'get',
     headers: {
       Accept: 'application/json',
@@ -80,6 +80,26 @@ export const fetchSkolenia = () => {
     .then((res) => res.json())
     .then(
       (result) => {
+        return result
+      },
+      (error) => {
+        return []
+      }
+    )
+}
+
+export const fetchSkoleniaZamestnancov = (): Promise<SkoleniaZamestnanca[]> => {
+  return fetch('/vsetkyskolenia', {
+    method: 'get',
+    headers: {
+      Accept: 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(result)
+
         return result
       },
       (error) => {

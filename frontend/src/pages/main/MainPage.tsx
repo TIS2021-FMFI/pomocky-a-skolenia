@@ -4,20 +4,32 @@ import {
   fetchEmployees,
   fetchRegions,
   fetchSkolenia,
+  fetchSkoleniaZamestnancov,
 } from '../../helpers/requests'
 import CoursesBeforeExpireTab from './CoursesBeforeExpireTab'
 import CoursesTab from './CoursesTab'
 import EmployeeTab from './EmployeeTab'
+import { useDispatch } from 'react-redux'
+import { setZamestnanci } from '../../features/zamestnanciSlice'
+import { setOblasti } from '../../features/oblastiSlice'
+import { setSkolenia } from '../../features/skoleniaSlice'
+
 import styles from './MainPage.module.css'
+import { setSkoleniaZamestnancov } from '../../features/skoleniaZamestnancovSlice'
 
 const MainPage = () => {
   const [tabValue, setTabValue] = useState<number>(0)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    fetchEmployees()
-    fetchRegions()
-    fetchSkolenia()
-  }, [])
+    async function fetch() {
+      dispatch(setZamestnanci(await fetchEmployees()))
+      dispatch(setOblasti(await fetchRegions()))
+      dispatch(setSkolenia(await fetchSkolenia()))
+      dispatch(setSkoleniaZamestnancov(await fetchSkoleniaZamestnancov()))
+    }
+    fetch()
+  }, [dispatch])
 
   const theme = useTheme()
   const largeScreen = useMediaQuery(theme.breakpoints.up('md'))

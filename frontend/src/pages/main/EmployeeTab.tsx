@@ -7,8 +7,7 @@ import { initialEmployee } from '../../constants'
 import { addEmployee, fetchEmployees } from '../../helpers/requests'
 import RemoveEmployeeModal from '../components/RemoveEmployeeModal'
 import { RootState } from '../../app/store'
-import { useSelector, useDispatch } from 'react-redux'
-import { setZamestnanci } from '../../features/zamestnanciSlice'
+import { useSelector } from 'react-redux'
 
 const EmployeeTab = () => {
   const zamestnanci = useSelector((state: RootState) => state.zamestnanci.value)
@@ -25,8 +24,6 @@ const EmployeeTab = () => {
   const [showRemoveEmployeeModal, setShowRemoveEmployeeModal] =
     useState<boolean>(false)
   const [removeEmployeeData, setRemoveEmployeeData] = useState<any>({})
-
-  const dispatch = useDispatch()
 
   const columns = Object.keys(zamestnanci.length > 0 ? zamestnanci[0] : []).map(
     (k) => {
@@ -45,13 +42,6 @@ const EmployeeTab = () => {
           }
     }
   )
-
-  useEffect(() => {
-    async function fetch() {
-      dispatch(setZamestnanci(await fetchEmployees()))
-    }
-    fetch()
-  }, [dispatch])
 
   const [columnsToShow, setColumnsToShow] = useState(columns)
 
