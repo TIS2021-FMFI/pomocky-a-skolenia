@@ -6,10 +6,10 @@ import { upravSkolenie } from "../../helpers/requests";
 import { skolenieSchema } from "../../schemas";
 import { getStore } from "../../store/store";
 import DropdownWithAdd from "./DropdownWithAdd";
-
-import styles from "./Modal.module.css";
 import MyTextField from "./MyTextField";
 import SkoleniaDropdown from "./SkoleniaDropdown";
+
+import styles from "./Modal.module.css";
 
 type UpravSkolenieModalProps = {
   open: boolean;

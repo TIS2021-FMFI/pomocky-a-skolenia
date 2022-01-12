@@ -1,21 +1,23 @@
-import { Box, TextField, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useState } from "react";
-import { pridajSkolenie, upravSkolenie } from "../../helpers/requests";
 import { getStore } from "../../store/store";
-import { Skolenie } from "../../types";
 import CoursesTableWrapper from "../components/CoursesTableWrapper";
+import PridajSkolenieZamestnancoviModal from "../components/PridajSkolenieZamestnancoviModal";
 import SkolenieModal from "../components/SkolenieModal";
 import UpravSkolenieModal from "../components/UpravSkolenieModal";
 
 const CoursesTab = () => {
   const { skoleniaZamestnancov } = getStore();
 
-  const [nameInput, setNameInput] = useState<string>("");
-  const [surnameInput, setSurnameInput] = useState<string>("");
-  const [skolenieInput, setSkolenieInput] = useState<string>("");
+  // const [nameInput, setNameInput] = useState<string>("");
+  // const [surnameInput, setSurnameInput] = useState<string>("");
+  // const [skolenieInput, setSkolenieInput] = useState<string>("");
   const [showAddSkolenieModal, setShowAddSkolenieModal] =
     useState<boolean>(false);
   const [showUpravSkolenieModal, setShowUpravSkolenieModal] =
+    useState<boolean>(false);
+
+  const [showPridajSkolenieZamestnancovi, setShowPridajSkolenieZamestnancovi] =
     useState<boolean>(false);
 
   const columns = Object.keys(skoleniaZamestnancov[0] || []).map((k) => {
@@ -34,7 +36,7 @@ const CoursesTab = () => {
         style={{ width: "fit-content" }}
       >
         <Box display={"flex"} flexDirection={"row"}>
-          <TextField
+          {/* <TextField
             id="Meno"
             label="Meno"
             defaultValue=""
@@ -51,7 +53,7 @@ const CoursesTab = () => {
             label="Skolenie"
             defaultValue=""
             onChange={(e) => setSkolenieInput(e.target.value.toLowerCase())}
-          />
+          /> */}
           <Button
             onClick={() => setShowAddSkolenieModal(true)}
             variant="contained"
@@ -64,6 +66,12 @@ const CoursesTab = () => {
           >
             Uprav skolenie
           </Button>
+          <Button
+            onClick={() => setShowPridajSkolenieZamestnancovi(true)}
+            variant="contained"
+          >
+            Pridaj skolenie zamestnancom
+          </Button>
         </Box>
         <CoursesTableWrapper columns={columns} rows={skoleniaZamestnancov} />
       </Box>
@@ -74,6 +82,10 @@ const CoursesTab = () => {
       <UpravSkolenieModal
         open={showUpravSkolenieModal}
         handleClose={() => setShowUpravSkolenieModal(false)}
+      />
+      <PridajSkolenieZamestnancoviModal
+        open={showPridajSkolenieZamestnancovi}
+        handleClose={() => setShowPridajSkolenieZamestnancovi(false)}
       />
     </>
   );

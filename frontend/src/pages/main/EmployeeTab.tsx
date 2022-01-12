@@ -74,8 +74,6 @@ const EmployeeTab = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skolenieInput, zamestnanci]);
 
-  console.log(getStore().oblasti);
-
   const handleAddEmployee = (newEmployee: EmployeeData) => {
     addEmployee(newEmployee);
     fetchEmployees();
