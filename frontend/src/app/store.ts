@@ -3,6 +3,7 @@ import skoleniaZamestnancovReducer from '../features/skoleniaZamestnancovSlice'
 import zamestnanciReducer from '../features/zamestnanciSlice'
 import oblastiReducer from '../features/oblastiSlice'
 import skoleniaReducer from '../features/skoleniaSlice'
+import konciaceSkoleniaReducer from '../features/konciaceSkoleniaSlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     zamestnanci: zamestnanciReducer,
     oblasti: oblastiReducer,
     skolenia: skoleniaReducer,
+    konciaceSkolenia: konciaceSkoleniaReducer,
   },
 })
 

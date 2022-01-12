@@ -12,11 +12,13 @@ import { useSelector } from 'react-redux'
 type PridajSkolenieZamestnancoviModalProps = {
   open: boolean
   handleClose: () => void
+  handleSubmit: (courseId: number, employees: number[], date: Date) => void
 }
 
 const PridajSkolenieZamestnancoviModal = ({
   open,
   handleClose,
+  handleSubmit,
 }: PridajSkolenieZamestnancoviModalProps) => {
   const [skolenieId, setSkolenieId] = useState<number | null>(null)
   const [zamestnanciId, setZamestnanciId] = useState<number[]>([])
@@ -38,8 +40,9 @@ const PridajSkolenieZamestnancoviModal = ({
           validateOnChange={true}
           validateOnMount={true}
           initialValues={{}}
-          onSubmit={(data) => {
-            //add insert to DB here
+          onSubmit={(_) => {
+            if (skolenieId && date)
+              handleSubmit(skolenieId, zamestnanciId, date)
             handleClose()
           }}
         >

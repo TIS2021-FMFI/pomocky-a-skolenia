@@ -51,8 +51,8 @@ const EmployeeModal = ({
           {({ values, isValid, setFieldValue }) => (
             <Form>
               <Box display={'flex'} flexDirection={'column'} color="secondary">
-                <MyTextField name="priezvisko" />
                 <MyTextField name="meno" />
+                <MyTextField name="priezvisko" />
                 <MyTextField name="osobne_cislo" type="number" />
                 <MyTextField name="karticka" type="number" />
                 <MyTextField name="bufetka" type="number" />
@@ -76,7 +76,7 @@ const EmployeeModal = ({
                   <DropdownWithAdd
                     options={oblasti.map((o) => ({ name: o.oblast }))}
                     setData={(data: string) => setFieldValue('oblast', data)}
-                    value={oblast}
+                    value={initialData ? { name: initialData.oblast } : oblast}
                     setOblast={setOblast}
                   />
                 </Box>

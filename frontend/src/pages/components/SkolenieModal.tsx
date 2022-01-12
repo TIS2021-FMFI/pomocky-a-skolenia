@@ -2,7 +2,6 @@ import { Box, Button, Modal, Typography } from '@mui/material'
 import { Formik, Form } from 'formik'
 import { useState } from 'react'
 import { initialSkolenie } from '../../constants'
-import { pridajSkolenie } from '../../helpers/requests'
 import { skolenieSchema } from '../../schemas'
 import { Skolenie } from '../../types'
 import DropdownWithAdd from './DropdownWithAdd'
@@ -16,6 +15,7 @@ type SkolenieModalProps = {
   open: boolean
   handleClose: () => void
   initialData?: Skolenie
+  handleSubmit: (s: Skolenie) => void
 }
 
 type Option = {
@@ -27,6 +27,7 @@ const SkolenieModal = ({
   open,
   handleClose,
   initialData,
+  handleSubmit,
 }: SkolenieModalProps) => {
   const oblasti = useSelector((state: RootState) => state.oblasti.value)
 
@@ -41,7 +42,7 @@ const SkolenieModal = ({
           initialValues={initialData || initialSkolenie}
           validationSchema={skolenieSchema}
           onSubmit={(data) => {
-            pridajSkolenie(data)
+            handleSubmit(data)
             handleClose()
           }}
         >

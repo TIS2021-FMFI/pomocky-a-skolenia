@@ -2,7 +2,6 @@ import { Box, Button, Modal, Typography } from '@mui/material'
 import { Formik, Form } from 'formik'
 import { useState } from 'react'
 import { initialSkolenie } from '../../constants'
-import { upravSkolenie } from '../../helpers/requests'
 import { skolenieSchema } from '../../schemas'
 import DropdownWithAdd from './DropdownWithAdd'
 import MyTextField from './MyTextField'
@@ -11,10 +10,12 @@ import { useSelector } from 'react-redux'
 
 import styles from './Modal.module.css'
 import { RootState } from '../../app/store'
+import { Skolenie } from '../../types'
 
 type UpravSkolenieModalProps = {
   open: boolean
   handleClose: () => void
+  handleSubmit: (s: Skolenie) => void
 }
 
 type Option = {
@@ -22,7 +23,11 @@ type Option = {
   name: string
 }
 
-const UpravSkolenieModal = ({ open, handleClose }: UpravSkolenieModalProps) => {
+const UpravSkolenieModal = ({
+  open,
+  handleClose,
+  handleSubmit,
+}: UpravSkolenieModalProps) => {
   const { skolenia, oblasti } = useSelector((state: RootState) => ({
     skolenia: state.skolenia.value,
     oblasti: state.oblasti.value,
@@ -39,7 +44,7 @@ const UpravSkolenieModal = ({ open, handleClose }: UpravSkolenieModalProps) => {
           initialValues={initialSkolenie}
           validationSchema={skolenieSchema}
           onSubmit={(data) => {
-            upravSkolenie(data)
+            handleSubmit(data as Skolenie)
             handleClose()
           }}
         >

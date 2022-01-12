@@ -5,18 +5,19 @@ import {
   TableRow,
   TableCell,
   TableBody,
-} from "@mui/material";
-import { keyToText as k } from "../../helpers/keysToText";
-import { SkoleniaZamestnanca } from "../../types";
+} from '@mui/material'
+import { keyToText as k } from '../../helpers/keysToText'
+import { SkoleniaZamestnanca } from '../../types'
 
-import styles from "./CoursesTableWrapper.module.css";
+import styles from './CoursesTableWrapper.module.css'
 
 type CoursesTableWrapperProps = {
-  columns: any[];
-  rows: SkoleniaZamestnanca[];
-};
+  columns: any[]
+  rows: SkoleniaZamestnanca[]
+}
 
 const CoursesTableWrapper = ({ columns, rows }: CoursesTableWrapperProps) => {
+  columns = columns.filter((col) => col.id !== 'id')
   return (
     <TableContainer className={styles.tableContainer}>
       <Table stickyHeader aria-label="sticky table">
@@ -38,22 +39,26 @@ const CoursesTableWrapper = ({ columns, rows }: CoursesTableWrapperProps) => {
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 {columns.map((column) => {
-                  const value = row[column.id];
+                  const value = row[column.id]
                   return (
-                    <TableCell key={column.id} align={"left"}>
-                      {typeof value !== "string" && typeof value !== "number"
-                        ? new Date(value.datum).toLocaleDateString("sk-SK")
-                        : value && value.toString()}
+                    <TableCell key={column.id} align={'left'}>
+                      {value === undefined
+                        ? ''
+                        : column.id === 'meno' ||
+                          column.id === 'priezvisko' ||
+                          column.id === 'oblast'
+                        ? value && value.toString()
+                        : new Date(value).toLocaleDateString('sk-SK')}
                     </TableCell>
-                  );
+                  )
                 })}
               </TableRow>
-            );
+            )
           })}
         </TableBody>
       </Table>
     </TableContainer>
-  );
-};
+  )
+}
 
-export default CoursesTableWrapper;
+export default CoursesTableWrapper

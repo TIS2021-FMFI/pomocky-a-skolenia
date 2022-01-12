@@ -6,14 +6,13 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@mui/material";
-import { KonciaceSkoleniaRow, Column } from "../../types";
-import styles from "./TableWrapper.module.css";
+} from '@mui/material'
+import styles from './TableWrapper.module.css'
 
 type TableProps = {
-  columns: Column[];
-  rows: KonciaceSkoleniaRow[];
-};
+  columns: any[]
+  rows: any[]
+}
 
 const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
   return (
@@ -34,12 +33,9 @@ const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
         </TableHead>
         <TableBody>
           {rows.map((row, index) => {
-            let color = "primary.main";
-            if (
-              row.pocetDniPlatnosti !== undefined &&
-              row.pocetDniPlatnosti < 14
-            ) {
-              color = "error.main";
+            let color = 'primary.main'
+            if (row.dlzka_platnosti !== undefined && row.dlzka_platnosti < 14) {
+              color = 'error.main'
             }
             return (
               <TableRow
@@ -47,25 +43,28 @@ const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
                 role="checkbox"
                 tabIndex={-1}
                 key={index}
-                color={"primary.main"}
+                color={'primary.main'}
               >
                 {columns.map((column) => {
-                  const value = row[column.id];
+                  const value = row[column.id]
                   return (
-                    <TableCell key={column.id} align={"left"}>
+                    <TableCell key={column.id} align={'left'}>
                       <Typography color={color}>
-                        {value && value.toString()}
+                        {column.id === 'koniec_platnosti' ||
+                        column.id === 'datum_absolvovania'
+                          ? new Date(value).toLocaleDateString('sk-SK')
+                          : value && value.toString()}
                       </Typography>
                     </TableCell>
-                  );
+                  )
                 })}
               </TableRow>
-            );
+            )
           })}
         </TableBody>
       </Table>
     </TableContainer>
-  );
-};
+  )
+}
 
-export default BeforeExpireTableWrapper;
+export default BeforeExpireTableWrapper

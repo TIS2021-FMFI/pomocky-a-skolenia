@@ -2,6 +2,7 @@ import { Tab, Tabs, Grid, useMediaQuery, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import {
   fetchEmployees,
+  fetchKonciaceSkolenia,
   fetchRegions,
   fetchSkolenia,
   fetchSkoleniaZamestnancov,
@@ -13,12 +14,13 @@ import { useDispatch } from 'react-redux'
 import { setZamestnanci } from '../../features/zamestnanciSlice'
 import { setOblasti } from '../../features/oblastiSlice'
 import { setSkolenia } from '../../features/skoleniaSlice'
+import { setKonciaceSkolenia } from '../../features/konciaceSkoleniaSlice'
 
 import styles from './MainPage.module.css'
 import { setSkoleniaZamestnancov } from '../../features/skoleniaZamestnancovSlice'
 
 const MainPage = () => {
-  const [tabValue, setTabValue] = useState<number>(0)
+  const [tabValue, setTabValue] = useState<number>(1)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -27,6 +29,7 @@ const MainPage = () => {
       dispatch(setOblasti(await fetchRegions()))
       dispatch(setSkolenia(await fetchSkolenia()))
       dispatch(setSkoleniaZamestnancov(await fetchSkoleniaZamestnancov()))
+      dispatch(setKonciaceSkolenia(await fetchKonciaceSkolenia()))
     }
     fetch()
   }, [dispatch])
