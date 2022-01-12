@@ -29,37 +29,42 @@ const MainPage = () => {
           container
           alignItems="center"
           justifyContent="center"
-          bgcolor={"secondary.main"}
+          bgcolor={'secondary.main'}
           item={true}
           style={{
             ...(largeScreen
-              ? { height: "100vh", width: "fit-content" }
-              : { height: "fit-content", width: "100vw" }),
-            ...{ position: "sticky", top: 0, left: 0, zIndex: 100 },
+              ? { height: '100vh', width: 'fit-content' }
+              : { height: 'fit-content', width: '100vw' }),
+            ...{ position: 'sticky', top: 0, left: 0, zIndex: 100 },
           }}
           md={1}
           lg={1}
           xl={1}
         >
           <Tabs
-            orientation={largeScreen ? "vertical" : "horizontal"}
+            orientation={largeScreen ? 'vertical' : 'horizontal'}
             value={tabValue}
             indicatorColor="primary"
             // textColor="inherit"
           >
             <Tab
               label="Konciace skolenia"
-              color={"secondary.contrastText"}
+              color={'secondary.contrastText'}
               onClick={() => setTabValue(0)}
             />
             <Tab
               label="Zakladne skolenia"
-              color={"secondary.contrastText"}
+              color={'secondary.contrastText'}
               onClick={() => setTabValue(1)}
             />
             <Tab
               label="Skolenia"
-              color={"secondary.contrastText"}
+              color={'secondary.contrastText'}
+              onClick={() => setTabValue(2)}
+            />
+            <Tab
+              label="Skolenia"
+              color={'secondary.contrastText'}
               onClick={() => setTabValue(2)}
             />
           </Tabs>
@@ -74,9 +79,10 @@ const MainPage = () => {
           {tabValue === 0 && <CoursesBeforeExpireTab />}
           {tabValue === 1 && <EmployeeTab />}
           {tabValue === 2 && <CoursesTab />}
+          
         </Grid>
       </Grid>
     </>
-  );
+  )
 };
 export default MainPage;
