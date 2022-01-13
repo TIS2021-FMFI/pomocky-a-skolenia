@@ -1,23 +1,24 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
-import { removeEmployee } from "../../helpers/requests";
+import { Box, Button, Modal, Typography } from '@mui/material'
 
-import styles from "./Modal.module.css";
+import styles from './Modal.module.css'
 
 type RemoveEmployeeModalProps = {
-  employee: any;
-  open: boolean;
-  handleClose: () => void;
-};
+  employee: any
+  open: boolean
+  handleClose: () => void
+  handleSubmit: (id: number) => void
+}
 
 const RemoveEmployeeModal = ({
   employee,
   open,
   handleClose,
+  handleSubmit,
 }: RemoveEmployeeModalProps) => {
   const handleRemove = async () => {
-    await removeEmployee(employee.id);
-    handleClose();
-  };
+    handleSubmit(employee.id)
+    handleClose()
+  }
 
   return (
     <Modal
@@ -27,26 +28,26 @@ const RemoveEmployeeModal = ({
       aria-describedby="modal-modal-description"
     >
       <Box
-        display={"flex"}
-        flexDirection={"row"}
-        alignContent={"space-between"}
+        display={'flex'}
+        flexDirection={'row'}
+        alignContent={'space-between'}
         className={styles.wh}
       >
         <Typography>
-          Naozaj chcete odstráňiť zamestnanca{" "}
-          <b>{employee.meno + " " + employee.priezvisko}</b>, tento proces je
+          Naozaj chcete odstráňiť zamestnanca{' '}
+          <b>{employee.meno + ' ' + employee.priezvisko}</b>, tento proces je
           trvalý a nenávratný.
         </Typography>
         <Box
           flexGrow={1}
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"flex-end"}
+          display={'flex'}
+          flexDirection={'row'}
+          justifyContent={'flex-end'}
         >
           <Button
             variant="contained"
             onClick={handleRemove}
-            style={{ marginRight: "1em" }}
+            style={{ marginRight: '1em' }}
           >
             Áno
           </Button>
@@ -56,7 +57,7 @@ const RemoveEmployeeModal = ({
         </Box>
       </Box>
     </Modal>
-  );
-};
+  )
+}
 
-export default RemoveEmployeeModal;
+export default RemoveEmployeeModal

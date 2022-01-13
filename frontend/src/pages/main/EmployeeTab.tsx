@@ -1,35 +1,44 @@
-import { Box, TextField, Button } from "@mui/material";
-import { useState, useEffect } from "react";
-import { EmployeeData } from "../../types";
-import EmployeeModal from "../components/EmployeeModal";
-import EmployeeTableWrapper from "../components/EmployeeTableWrapper";
-import { getStore } from "../../store/store";
-import { initialEmployee } from "../../constants";
-import { addEmployee, fetchEmployees } from "../../helpers/requests";
-import RemoveEmployeeModal from "../components/RemoveEmployeeModal";
+import { Box, TextField, Button } from '@mui/material'
+import { useState, useEffect } from 'react'
+import { EmployeeData } from '../../types'
+import EmployeeModal from '../components/EmployeeModal'
+import EmployeeTableWrapper from '../components/EmployeeTableWrapper'
+import { initialEmployee } from '../../constants'
+import {
+  addEmployee,
+  editEmployee,
+  fetchEmployees,
+  removeEmployee,
+} from '../../helpers/requests'
+import RemoveEmployeeModal from '../components/RemoveEmployeeModal'
+import { RootState } from '../../app/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { setZamestnanci } from '../../features/zamestnanciSlice'
+import { exportAsCsv } from '../../helpers/exportAsCSV'
 
 const EmployeeTab = () => {
-  const { zamestnanci } = getStore();
-  const [nameInput, setNameInput] = useState<string>("");
-  const [surnameInput, setSurnameInput] = useState<string>("");
-  const [dataToShow, setDataToShow] = useState(zamestnanci);
-  const [skolenieInput, setSkolenieInput] = useState<string>("");
+  const zamestnanci = useSelector((state: RootState) => state.zamestnanci.value)
+  const [nameInput, setNameInput] = useState<string>('')
+  const [surnameInput, setSurnameInput] = useState<string>('')
+  const [dataToShow, setDataToShow] = useState(zamestnanci)
   const [showAddEmployeeModal, setShowAddEmployeeModal] =
-    useState<boolean>(false);
+    useState<boolean>(false)
   const [showEditEmployeeModal, setShowEditEmployeeModal] =
-    useState<boolean>(false);
+    useState<boolean>(false)
   const [editEmployeeData, setEditEmployeeData] =
-    useState<EmployeeData>(initialEmployee);
+    useState<EmployeeData>(initialEmployee)
   const [showRemoveEmployeeModal, setShowRemoveEmployeeModal] =
-    useState<boolean>(false);
-  const [removeEmployeeData, setRemoveEmployeeData] = useState<any>({});
+    useState<boolean>(false)
+  const [removeEmployeeData, setRemoveEmployeeData] = useState<any>({})
+
+  const dispatch = useDispatch()
 
   const columns = Object.keys(zamestnanci.length > 0 ? zamestnanci[0] : []).map(
     (k) => {
-      return k === "id"
+      return k === 'id'
         ? {
-            id: "",
-            label: "",
+            id: '',
+            label: '',
             minWidth: 120,
             format: null,
           }
@@ -38,65 +47,56 @@ const EmployeeTab = () => {
             label: k,
             minWidth: 120,
             format: null,
-          };
+          }
     }
-  );
-
-  if (zamestnanci.length === 0) {
-    fetchEmployees();
-    setSkolenieInput("");
-  }
-
-  const [columnsToShow, setColumnsToShow] = useState(columns);
+  )
 
   useEffect(() => {
+    console.log('trigerred')
+
     setDataToShow(
       zamestnanci.filter((row: any) => {
         return (
-          row["meno"].toLowerCase().startsWith(nameInput) &&
-          row["priezvisko"].toLowerCase().startsWith(surnameInput)
-        );
+          row['meno'].toLowerCase().startsWith(nameInput) &&
+          row['priezvisko'].toLowerCase().startsWith(surnameInput)
+        )
       })
-    );
-  }, [nameInput, surnameInput, zamestnanci]);
+    )
+  }, [nameInput, surnameInput, zamestnanci])
 
-  useEffect(() => {
-    setColumnsToShow(
-      columns.filter((col) => {
-        return (
-          col["id"] === "meno" ||
-          col["id"] === "priezvisko" ||
-          col["id"] === "" ||
-          col["id"].toLowerCase().startsWith(skolenieInput)
-        );
-      })
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [skolenieInput, zamestnanci]);
-
-  const handleAddEmployee = (newEmployee: EmployeeData) => {
-    addEmployee(newEmployee);
-    fetchEmployees();
-  };
+  const handleAddEmployee = async (newEmployee: EmployeeData) => {
+    const res = addEmployee(newEmployee)
+    if (await res) dispatch(setZamestnanci(await fetchEmployees()))
+  }
 
   const handleEditEmployee = (data: any) => {
-    setEditEmployeeData(data);
-    setShowEditEmployeeModal(true);
-  };
+    setEditEmployeeData(data)
+    setShowEditEmployeeModal(true)
+  }
 
   const handleRemoveEmployee = (data: any) => {
-    setRemoveEmployeeData(data);
-    setShowRemoveEmployeeModal(true);
-  };
+    setRemoveEmployeeData(data)
+    setShowRemoveEmployeeModal(true)
+  }
+
+  const removeEmp = async (id: number) => {
+    const res = await removeEmployee(id)
+    if (res) dispatch(setZamestnanci(await fetchEmployees()))
+  }
+
+  const editEmp = async (employee: EmployeeData) => {
+    const res = await editEmployee(employee)
+    if (res) dispatch(setZamestnanci(await fetchEmployees()))
+  }
 
   return (
     <>
       <Box
-        display={"flex"}
-        flexDirection={"column"}
-        style={{ width: "fit-content" }}
+        display={'flex'}
+        flexDirection={'column'}
+        style={{ width: 'fit-content' }}
       >
-        <Box display={"flex"} flexDirection={"row"}>
+        <Box display={'flex'} flexDirection={'row'}>
           <TextField
             id="Meno"
             label="Meno"
@@ -109,22 +109,28 @@ const EmployeeTab = () => {
             defaultValue=""
             onChange={(e) => setSurnameInput(e.target.value.toLowerCase())}
           />
-          <TextField
+          {/* <TextField
             id="Skolenie"
             label="Skolenie"
             defaultValue=""
             onChange={(e) => setSkolenieInput(e.target.value.toLowerCase())}
-          />
+          /> */}
           <Button
             onClick={() => setShowAddEmployeeModal(true)}
             variant="contained"
           >
             Pridaj zamestnanca
           </Button>
+          <Button
+            onClick={() => exportAsCsv(columns, dataToShow)}
+            variant="contained"
+          >
+            Exportovat data
+          </Button>
         </Box>
         <EmployeeTableWrapper
           rows={dataToShow}
-          columns={columnsToShow}
+          columns={columns}
           handleEditEmployee={handleEditEmployee}
           handleRemoveEmployee={handleRemoveEmployee}
         />
@@ -138,18 +144,18 @@ const EmployeeTab = () => {
         open={showEditEmployeeModal}
         handleClose={() => setShowEditEmployeeModal(false)}
         initialData={editEmployeeData}
-        handleSubmit={handleAddEmployee}
+        handleSubmit={editEmp}
       />
       <RemoveEmployeeModal
         handleClose={() => {
-          setShowRemoveEmployeeModal(false);
-          setDataToShow(zamestnanci);
+          setShowRemoveEmployeeModal(false)
         }}
         open={showRemoveEmployeeModal}
         employee={removeEmployeeData}
+        handleSubmit={removeEmp}
       />
     </>
-  );
-};
+  )
+}
 
-export default EmployeeTab;
+export default EmployeeTab
