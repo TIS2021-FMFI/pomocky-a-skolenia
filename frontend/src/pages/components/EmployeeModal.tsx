@@ -45,6 +45,7 @@ const EmployeeModal = ({
           validationSchema={addEmployeeSchema}
           onSubmit={(data) => {
             handleSubmit(data)
+            setOblast(null)
             handleClose()
           }}
         >
@@ -76,7 +77,13 @@ const EmployeeModal = ({
                   <DropdownWithAdd
                     options={oblasti.map((o) => ({ name: o.oblast }))}
                     setData={(data: string) => setFieldValue('oblast', data)}
-                    value={initialData ? { name: initialData.oblast } : oblast}
+                    value={
+                      oblast
+                        ? oblast
+                        : initialData
+                        ? { name: initialData.oblast }
+                        : null
+                    }
                     setOblast={setOblast}
                   />
                 </Box>
