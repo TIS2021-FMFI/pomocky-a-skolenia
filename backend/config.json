@@ -8,5 +8,10 @@
     "PORT": 5432
   },
   "API_PORT": 9000,
-  "SECRET.KEY": "secret"
+  "SECRET.KEY": "secret",
+  "MAILER": {
+    "EMAIL": "notifikacie.noreplay@gmail.com",
+    "HESLO": "ncvtpfztgcfxwswx",
+    "SERVICE": "gmail"
+  }
 }

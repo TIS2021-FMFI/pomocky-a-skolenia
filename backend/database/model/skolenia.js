@@ -1,6 +1,7 @@
 const {pool} = require("../database");
 const {replacer, reversedReplacer, skolenieParser, oblastiToList} = require("../../functions");
 
+
 const getAll = async (request, response) => {
     await pool.query('SELECT * FROM skolenia', (error, results) => {
         let data;
@@ -8,7 +9,10 @@ const getAll = async (request, response) => {
             response.status(400).send(error.message, error.code)
         } else {
             data = JSON.parse(JSON.stringify(results.rows, replacer));
-            response.status(200).send(data);
+            var dataToSend = data.sort(function (a, b){
+                return (a.oblast < b.oblast) ? 1 : (a.oblast > b.oblast) ? -1 : 0;
+            })
+            response.status(200).send(dataToSend);
         }
     })
 }
@@ -90,7 +94,6 @@ const getAllSkolenia = async (request, response) => {
             }
         }
     })
-
 }
 
 const endingSkolenia = async (request, response) => {
@@ -121,25 +124,22 @@ const addSkolenieZamest = async (request, response) => {
     const {
         id_zamestnancov, id_skolenia, datum
     } = request.body
-    try{
-        let queryText = 'INSERT INTO zamestnanci_skolenia(id_zamestnanca, id_skolenia, datum_absolvovania) VALUES';
+        let errorlog = []
+        let queryText = 'INSERT INTO zamestnanci_skolenia(id_zamestnanca, id_skolenia, datum_absolvovania) VALUES($1,$2,$3) ON conflict(id_zamestnanca, id_skolenia) DO update set datum_absolvovania=EXCLUDED.datum_absolvovania';
         for (const id_zamestnanca of id_zamestnancov) {
-            queryText = queryText.concat("(" + id_zamestnanca + ",$1, $2),")
+           try {
+               await pool.query(queryText, [id_zamestnanca, id_skolenia, datum])
+           }catch (error){
+               errorlog.push(error)
+           }
         }
-        queryText = queryText.slice(0, -1);
-            await pool.query('BEGIN')
-            try {
-                await pool.query(queryText, [id_skolenia, datum])
-            }catch (error){
-                await pool.query('ROLLBACK')
-            }
-            await pool.query('COMMIT')
-        response.status(200).send({message:'Insertion was successful'})
-    }
-    catch (error) {
-        await pool.query('ROLLBACK')
-        response.status(400).send({message:'Insertion was not successful', "error code": error.code, error: error.message})
-    }
+        if (errorlog.length === 0){
+            response.status(200).send({message:'Insertion was successful'})
+        }
+        else{
+            response.status(400).send({message:'Insertion was not successful', errorlog})
+        }
+
 }
 
 const updateSkolenieZam = async (request, response) => {
