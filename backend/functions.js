@@ -88,4 +88,4 @@ function generatePassword() {
 }
 
 
-module.exports = {replacer, reversedReplacer, skolenieParser, hashPassword,oblastiToList, generatePassword, CSVfix}
+module.exports = {replacer, reversedReplacer, skolenieParser, hashPassword,oblastiToList, generatePassword}
