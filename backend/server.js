@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const database = require("./database/queries.js");
-const config = require("./config.json")
+const config = require("./config.json");
 const auth = require("./middleware/auth");
+const cron = require('node-cron');
 
 const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/oblasti',auth ,database.oblasti.getAll)
@@ -30,16 +31,29 @@ app.post('/upravskoleniezamestnancovi', auth, database.skolenia.updateSkolenieZa
 
 app.put('/addoblasti', auth, database.user.addOblast)
 app.post("/register", auth, database.user.register)
+app.put('/upravheslo', auth, database.user.updatePasswd)
 app.post("/login", database.user.login)
+app.post('/resetheslo', database.user.resetPasswd)
 
 
 app.get("/welcome", auth, (req, res) => {
-    console.log(req.user)
+    console.log(req.user);
     res.status(200).send("Welcome <3");
 });
+
+
 
 app.listen(config["API_PORT"], function () {
     // let host = server.address().address
     // let port = server.address().port
     console.log ('Listen on port 9000');
+    // cron.schedule('* * * * *', function() {
+    //     database.user.notify().then();
+    //     console.log('running a task every minute');
+    // });
+    //3 den v mesiaci
+    // cron.schedule('0 0 3 * *', function() {
+    //     database.user.notify().then();
+    //     console.log('running a task every minute');
+    // });
 })
