@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(process.env.PORT || config['API_PORT'], function () {
   // let host = server.address().address
   // let port = server.address().port
-  console.log('Listen on port 9000')
+  console.log(`Listen on port ${this.address().port}`)
   // cron.schedule('* * * * *', function() {
   //     database.user.notify().then();
   //     console.log('running a task every minute');
