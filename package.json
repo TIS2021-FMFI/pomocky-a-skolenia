@@ -1,5 +1,9 @@
 {
-"scripts": {
-    "heroku-postbuild": "cd backend && npm run heroku-postbuild"
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "app",
+  "main": "server.js","scripts": {
+    "heroku-postbuild": "cd backend && npm run heroku-postbuild",
+    "start": "cd backend && node server.js"
   }
 }

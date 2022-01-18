@@ -19,8 +19,11 @@ import { setSkolenia } from '../../features/skoleniaSlice'
 import { exportAsCsv } from '../../helpers/exportAsCSV'
 
 const CoursesTab = () => {
-  const skoleniaZamestnancov = useSelector(
-    (state: RootState) => state.skoleniaZamestnancov.value
+  const { skoleniaZamestnancov, skolenia } = useSelector(
+    (state: RootState) => ({
+      skoleniaZamestnancov: state.skoleniaZamestnancov.value,
+      skolenia: state.skolenia.value,
+    })
   )
 
   const dispatch = useDispatch()
@@ -39,20 +42,40 @@ const CoursesTab = () => {
   const [showPridajSkolenieZamestnancovi, setShowPridajSkolenieZamestnancovi] =
     useState<boolean>(false)
 
-  const columns = Object.keys(skoleniaZamestnancov[0] || []).map((k) => {
-    return {
-      id: k,
-      label: k,
+  const columns = [
+    {
+      id: 'meno',
+      label: 'meno',
       minWidth: 120,
       format: null,
-    }
-  })
+    },
+    {
+      id: 'priezvisko',
+      label: 'priezvisko',
+      minWidth: 120,
+      format: null,
+    },
+    {
+      id: 'oblast',
+      label: 'oblast',
+      minWidth: 120,
+      format: null,
+    },
+    ...skolenia.map((k) => {
+      console.log(skolenia)
+
+      return {
+        id: k.kod_skolenia,
+        label: k.kod_skolenia,
+        minWidth: 120,
+        format: null,
+      }
+    }),
+  ]
 
   const [columnsToShow, setColumnsToShow] = useState(columns)
 
   useEffect(() => {
-    console.log('trigerred')
-
     setDataToShow(
       skoleniaZamestnancov.filter((row: any) => {
         return (
@@ -64,6 +87,8 @@ const CoursesTab = () => {
   }, [nameInput, surnameInput, skoleniaZamestnancov])
 
   useEffect(() => {
+    console.log(columns)
+
     setColumnsToShow(
       columns.filter((col) => {
         return (
