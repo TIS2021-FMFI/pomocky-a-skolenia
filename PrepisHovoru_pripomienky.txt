@@ -1,0 +1,8 @@
+Pripomienky zadávateľov 1
+
+- okno Končiace školenia - pridať stlpec Názov školenia
+- nové okno Správa účtu - zmeniť heslo + ak je administrátor - vie pridať nového užívateľa (jeho mail + vyberie oblasti alebo nový admin), tomu následne príde na mail vygenerované heslo a bude sa vedieť ním prihlásiť
+- zmeniť farbu textu na žltých buttonoch dať modrú a na modrom podklade dať napr. bielu
+- rovanko nadpisy tabuliek.. názvy stlpcov napr. tučným
+- aktualizovanie dátumu školenia nerobiť ďalší button ale pri školeniach mať funkciu, že keď už tam je, tak ho prepíšem (aktualizujem)
+- vytvoriť manuál aspoň v nejakách základných bodoch
