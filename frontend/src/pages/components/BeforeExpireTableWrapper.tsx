@@ -26,7 +26,7 @@ const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
                 align={column.align}
                 style={{ minWidth: column.minWidth }}
               >
-                {column.label}
+                <b>{column.label}</b>
               </TableCell>
             ))}
           </TableRow>
