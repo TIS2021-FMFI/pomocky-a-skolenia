@@ -45,19 +45,19 @@ const CoursesTab = () => {
   const columns = [
     {
       id: 'meno',
-      label: 'meno',
+      label: '',
       minWidth: 120,
       format: null,
     },
     {
       id: 'priezvisko',
-      label: 'priezvisko',
+      label: '',
       minWidth: 120,
       format: null,
     },
     {
       id: 'oblast',
-      label: 'oblast',
+      label: '',
       minWidth: 120,
       format: null,
     },
@@ -66,7 +66,7 @@ const CoursesTab = () => {
 
       return {
         id: k.kod_skolenia,
-        label: k.kod_skolenia,
+        label: k.nazov,
         minWidth: 120,
         format: null,
       }
@@ -95,7 +95,8 @@ const CoursesTab = () => {
           col['id'] === 'meno' ||
           col['id'] === 'priezvisko' ||
           col['id'] === '' ||
-          col['id'].toLowerCase().startsWith(skolenieInput)
+          col['id'].toLowerCase().startsWith(skolenieInput) ||
+          col['label'].toLowerCase().startsWith(skolenieInput)
         )
       })
     )
@@ -174,7 +175,7 @@ const CoursesTab = () => {
             onClick={() => setShowPridajSkolenieZamestnancovi(true)}
             variant="contained"
           >
-            Pridaj skolenie zamestnancom
+            Pridaj/Uprav skolenie zamestnancom
           </Button>
           <Button
             onClick={() => exportAsCsv(columnsToShow, dataToShow)}

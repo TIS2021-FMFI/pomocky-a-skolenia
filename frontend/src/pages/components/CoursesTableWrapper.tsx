@@ -27,9 +27,13 @@ const CoursesTableWrapper = ({ columns, rows }: CoursesTableWrapperProps) => {
               <TableCell
                 key={column.id}
                 align={column.align}
-                style={{ minWidth: column.minWidth }}
+                style={{ minWidth: column.minWidth, verticalAlign: 'bottom' }}
               >
-                {k(column.label)}
+                <b>
+                  {column.label
+                    ? k(`${column.id} ${column.label}`)
+                    : k(column.id)}
+                </b>
               </TableCell>
             ))}
           </TableRow>

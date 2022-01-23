@@ -1,21 +1,21 @@
-import { Box, Button } from "@mui/material";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { EmployeeData } from "../../types";
-import styles from "./TableWrapper.module.css";
-import { keyToText as k } from "../../helpers/keysToText";
-import { useMemo } from "react";
+import { Box, Button } from '@mui/material'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import { EmployeeData } from '../../types'
+import styles from './TableWrapper.module.css'
+import { keyToText as k } from '../../helpers/keysToText'
+import { useMemo } from 'react'
 
 type TableProps = {
-  columns: any[];
-  rows: any[];
-  handleEditEmployee: (rowData: EmployeeData) => void;
-  handleRemoveEmployee: (rowData: EmployeeData) => void;
-};
+  columns: any[]
+  rows: any[]
+  handleEditEmployee: (rowData: EmployeeData) => void
+  handleRemoveEmployee: (rowData: EmployeeData) => void
+}
 
 const EmployeeTableWrapper = ({
   columns,
@@ -35,7 +35,7 @@ const EmployeeTableWrapper = ({
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {k(column.label)}
+                  <b>{k(column.label)}</b>
                 </TableCell>
               ))}
             </TableRow>
@@ -45,10 +45,10 @@ const EmployeeTableWrapper = ({
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                   {columns.map((column) => {
-                    const value = row[column.id];
-                    return column.id === "" ? (
+                    const value = row[column.id]
+                    return column.id === '' ? (
                       <TableCell key={column.id} align="center">
-                        <Box display={"flex"} flexDirection={"column"}>
+                        <Box display={'flex'} flexDirection={'column'}>
                           <Button
                             variant="contained"
                             size="small"
@@ -66,25 +66,25 @@ const EmployeeTableWrapper = ({
                         </Box>
                       </TableCell>
                     ) : (
-                      <TableCell key={column.id} align={"left"}>
-                        {column.id === "datum_vydania"
+                      <TableCell key={column.id} align={'left'}>
+                        {column.id === 'datum_vydania'
                           ? !!value
-                            ? new Date(value).toLocaleDateString("sk-SK")
-                            : ""
+                            ? new Date(value).toLocaleDateString('sk-SK')
+                            : ''
                           : value && value.toString()}
                       </TableCell>
-                    );
+                    )
                   })}
                 </TableRow>
-              );
+              )
             })}
           </TableBody>
         </Table>
       </TableContainer>
-    );
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows, columns]);
+  }, [rows, columns])
 
-  return memTable;
-};
-export default EmployeeTableWrapper;
+  return memTable
+}
+export default EmployeeTableWrapper
