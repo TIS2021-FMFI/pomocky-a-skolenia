@@ -52,8 +52,6 @@ const EmployeeTab = () => {
   )
 
   useEffect(() => {
-    console.log('trigerred')
-
     setDataToShow(
       zamestnanci.filter((row: any) => {
         return (

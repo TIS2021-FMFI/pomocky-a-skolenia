@@ -62,8 +62,6 @@ const CoursesTab = () => {
       format: null,
     },
     ...skolenia.map((k) => {
-      console.log(skolenia)
-
       return {
         id: k.kod_skolenia,
         label: k.nazov,

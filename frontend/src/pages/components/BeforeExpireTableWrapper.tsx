@@ -34,7 +34,10 @@ const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
         <TableBody>
           {rows.map((row, index) => {
             let color = 'primary.main'
-            if (row.dlzka_platnosti !== undefined && row.dlzka_platnosti < 14) {
+            if (
+              row.pocet_dni_platnosti !== undefined &&
+              row.pocet_dni_platnosti < 14
+            ) {
               color = 'error.main'
             }
             return (
