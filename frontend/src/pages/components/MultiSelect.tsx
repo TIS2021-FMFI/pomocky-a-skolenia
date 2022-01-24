@@ -5,7 +5,7 @@ import { RootState } from '../../app/store'
 type MultiSelectProps = {
   data: any[]
   setData: (data: any[]) => void
-  disabled: boolean
+  disabled?: boolean
   name: string
 }
 
@@ -38,8 +38,8 @@ const MultiSelect = ({ name, data, setData, disabled }: MultiSelectProps) => {
             {...params}
             name={name}
             variant="filled"
-            label="Users"
-            placeholder="Search"
+            label={name}
+            placeholder="Vyhľadaj"
             fullWidth={true}
           />
         )}

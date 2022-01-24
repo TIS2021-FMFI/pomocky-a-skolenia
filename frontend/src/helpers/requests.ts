@@ -186,16 +186,19 @@ export const fetchKonciaceSkolenia = async (): Promise<
     .then((res) => res.json())
     .then(
       (result) => {
-        result = result.slice(0, 20)
-        return result.map((o: any) => ({
-          meno: o.meno,
-          priezvisko: o.priezvisko,
-          kod_skolenia: o.kod_skolenia,
-          dlzka_platnosti: o.dlzka_platnosti,
-          datum_absolvovania: o.datum_absolvovania,
-          koniec_platnosti: o.koniec_platnosti,
-          oblast: o.oblast,
-        }))
+        console.log(result)
+
+        // result = result.slice(0, 20)
+        return result
+        // return result.map((o: any) => ({
+        //   meno: o.meno,
+        //   priezvisko: o.priezvisko,
+        //   kod_skolenia: o.kod_skolenia,
+        //   dlzka_platnosti: o.dlzka_platnosti,
+        //   datum_absolvovania: o.datum_absolvovania,
+        //   koniec_platnosti: o.koniec_platnosti,
+        //   oblast: o.oblast,
+        // }))
       },
       (error) => {
         return []
