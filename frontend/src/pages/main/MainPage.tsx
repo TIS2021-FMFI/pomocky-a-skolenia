@@ -18,6 +18,7 @@ import { setKonciaceSkolenia } from '../../features/konciaceSkoleniaSlice'
 
 import styles from './MainPage.module.css'
 import { setSkoleniaZamestnancov } from '../../features/skoleniaZamestnancovSlice'
+import AccountManagementTab from "./AccountManagementTab";
 
 const MainPage = () => {
   const [tabValue, setTabValue] = useState<number>(1)
@@ -63,19 +64,24 @@ const MainPage = () => {
             // textColor="inherit"
           >
             <Tab
-              label="Konciace skolenia"
+              label="Končiace školenia"
               color={'secondary.contrastText'}
               onClick={() => setTabValue(0)}
             />
             <Tab
-              label="Zakladne skolenia"
+              label="Základné údaje"
               color={'secondary.contrastText'}
               onClick={() => setTabValue(1)}
             />
             <Tab
-              label="Skolenia"
+              label="Školenia"
               color={'secondary.contrastText'}
               onClick={() => setTabValue(2)}
+            />
+            <Tab
+                label="Správa účtu"
+                color={'secondary.contrastText'}
+                onClick={() => setTabValue(3)}
             />
           </Tabs>
         </Grid>
@@ -89,6 +95,7 @@ const MainPage = () => {
           {tabValue === 0 && <CoursesBeforeExpireTab />}
           {tabValue === 1 && <EmployeeTab />}
           {tabValue === 2 && <CoursesTab />}
+          {tabValue === 3 && <AccountManagementTab />}
         </Grid>
       </Grid>
     </>
