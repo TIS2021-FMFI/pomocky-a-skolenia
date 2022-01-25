@@ -1,0 +1,34 @@
+
+.AccountSquare{
+    color: #00538B;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+}
+
+.accountForm, .accountForm2{
+    width: 22vw;
+    height: 300px;
+    margin-top: 15%;
+    display:  flex;
+    flex-direction:  column;
+    align-items:  flex-start;
+}
+
+.accountForm{
+    float: left;
+    margin-left: 10%;
+}
+
+.accountForm2{
+    float: right;
+    margin-right: 15%;
+}
+
+.verticalLine {
+    border-left: 1px solid #FFCD00;
+    height: 90%;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 5%;
+}
