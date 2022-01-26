@@ -20,10 +20,10 @@ class AccountManagementTab extends React.Component {
                         <input
                             type="password"
                             id="password"
-                            className="form-control"
+                            className="form-control2"
                             placeholder="Zadajte nové heslo"
                         />
-                        <button className="login-btn" onClick={undefined}>
+                        <button className="account-btn" onClick={undefined}>
                             Zmeniť
                         </button>
                     </div>
@@ -34,11 +34,11 @@ class AccountManagementTab extends React.Component {
                         <input
                             type="email"
                             id="email"
-                            className="form-control"
+                            className="form-control2"
                             placeholder="Zadajte mail nadriadeného"
                         />
                         <p>Vyberte oblasti</p>
-                        <button className="login-btn" onClick={undefined}>
+                        <button className="account-btn" onClick={undefined}>
                             Pridať
                         </button>
                     </div>
