@@ -1,12 +1,13 @@
 .tableContainer {
-  max-width: fit-content;
-  overflow-x: none;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
 }
 .warning {
-  color: "orange";
+  color: 'orange';
 }
 .danger {
-  color: "#FF0000";
+  color: '#FF0000';
 }
 
 td {

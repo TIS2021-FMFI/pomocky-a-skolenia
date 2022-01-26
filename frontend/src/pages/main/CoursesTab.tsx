@@ -136,7 +136,7 @@ const CoursesTab = () => {
       <Box
         display={'flex'}
         flexDirection={'column'}
-        style={{ width: 'fit-content' }}
+        style={{ width: '100hv', height: '100vh' }}
       >
         <Box display={'flex'} flexDirection={'row'}>
           <TextField
@@ -153,7 +153,7 @@ const CoursesTab = () => {
           />
           <TextField
             id="Skolenie"
-            label="Skolenie"
+            label="Školenie"
             defaultValue=""
             onChange={(e) => setSkolenieInput(e.target.value.toLowerCase())}
           />
@@ -161,25 +161,25 @@ const CoursesTab = () => {
             onClick={() => setShowAddSkolenieModal(true)}
             variant="contained"
           >
-            Pridaj skolenie
+            Pridaj školenie
           </Button>
           <Button
             onClick={() => setShowUpravSkolenieModal(true)}
             variant="contained"
           >
-            Uprav skolenie
+            Uprav školenie
           </Button>
           <Button
             onClick={() => setShowPridajSkolenieZamestnancovi(true)}
             variant="contained"
           >
-            Pridaj/Uprav skolenie zamestnancom
+            Pridaj/Uprav školenie zamestnancom
           </Button>
           <Button
             onClick={() => exportAsCsv(columnsToShow, dataToShow)}
             variant="contained"
           >
-            Exportovat data
+            Exportovať dáta
           </Button>
         </Box>
         <CoursesTableWrapper columns={columnsToShow} rows={dataToShow} />

@@ -35,7 +35,8 @@ function App() {
   })
   return (
     <ThemeProvider theme={theme}>
-      {loggedIn ? <MainPage /> : <LoginPage />}
+      <MainPage />
+      {/* {loggedIn ? <MainPage /> : <LoginPage />} */}
     </ThemeProvider>
   )
 }
