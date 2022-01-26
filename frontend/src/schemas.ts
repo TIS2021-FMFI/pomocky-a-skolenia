@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from 'yup'
 
 export const addEmployeeSchema = yup.object({
   meno: yup.string().required().min(3),
@@ -13,7 +13,7 @@ export const addEmployeeSchema = yup.object({
   zfsatna: yup.string().nullable(),
   zfskrinka: yup.number().nullable(),
   winnex: yup.number().nullable(),
-});
+})
 
 export const skolenieSchema = yup.object({
   id: yup.number().nullable(),
@@ -22,4 +22,4 @@ export const skolenieSchema = yup.object({
   oblast: yup.string().required(),
   dlzka_platnosti: yup.number().required(),
   popis: yup.string().nullable(),
-});
+})
