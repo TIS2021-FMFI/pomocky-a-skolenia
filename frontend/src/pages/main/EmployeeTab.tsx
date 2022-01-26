@@ -117,7 +117,7 @@ const EmployeeTab = () => {
             onClick={() => exportAsCsv(columns, dataToShow)}
             variant="contained"
           >
-            Exportovat data
+            Exportovať dáta
           </Button>
         </Box>
         <EmployeeTableWrapper
