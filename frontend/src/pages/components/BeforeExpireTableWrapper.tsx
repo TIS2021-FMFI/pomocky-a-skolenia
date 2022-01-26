@@ -7,6 +7,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
+import { keyToText as k } from '../../helpers/keysToText'
 import styles from './TableWrapper.module.css'
 
 type TableProps = {
@@ -26,7 +27,7 @@ const BeforeExpireTableWrapper = ({ columns, rows }: TableProps) => {
                 align={column.align}
                 style={{ minWidth: column.minWidth }}
               >
-                <b>{column.label}</b>
+                <b>{k(column.label)}</b>
               </TableCell>
             ))}
           </TableRow>

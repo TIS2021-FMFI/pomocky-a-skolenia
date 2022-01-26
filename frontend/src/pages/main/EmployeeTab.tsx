@@ -92,7 +92,7 @@ const EmployeeTab = () => {
       <Box
         display={'flex'}
         flexDirection={'column'}
-        style={{ width: 'fit-content' }}
+        style={{ width: '100hw', height: '100vh' }}
       >
         <Box display={'flex'} flexDirection={'row'}>
           <TextField
@@ -107,12 +107,6 @@ const EmployeeTab = () => {
             defaultValue=""
             onChange={(e) => setSurnameInput(e.target.value.toLowerCase())}
           />
-          {/* <TextField
-            id="Skolenie"
-            label="Skolenie"
-            defaultValue=""
-            onChange={(e) => setSkolenieInput(e.target.value.toLowerCase())}
-          /> */}
           <Button
             onClick={() => setShowAddEmployeeModal(true)}
             variant="contained"

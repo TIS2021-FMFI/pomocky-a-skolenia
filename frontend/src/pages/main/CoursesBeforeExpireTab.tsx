@@ -2,7 +2,7 @@ import BeforeExpireTableWrapper from '../components/BeforeExpireTableWrapper'
 import { RootState } from '../../app/store'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { Grid } from '@mui/material'
+import { Box } from '@mui/material'
 import MultiSelect from '../components/MultiSelect'
 import { CourseBeforeExpire } from '../../types'
 
@@ -41,14 +41,18 @@ const CoursesBeforeExpireTab = () => {
   }, [konciaceSkolenia, regionsToShow])
 
   return (
-    <Grid>
+    <Box
+      display={'flex'}
+      flexDirection={'column'}
+      style={{ width: '100hv', height: '100vh' }}
+    >
       <MultiSelect
         name="Oblasti"
         data={regionsToShow}
         setData={setRegionsToShow}
       />
       <BeforeExpireTableWrapper columns={columns} rows={rowsToShow} />
-    </Grid>
+    </Box>
   )
 }
 export default CoursesBeforeExpireTab

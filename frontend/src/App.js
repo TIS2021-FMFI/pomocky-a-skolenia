@@ -3,10 +3,11 @@ import LoginPage from './pages/login/LoginPage'
 import MainPage from './pages/main/MainPage'
 import { createTheme } from '@mui/material/styles'
 import { gefcoPalette } from './pages/style/palette'
+import { useSelector } from 'react-redux'
 import './style.css'
 
 function App() {
-  const loggedIn = false
+  const loggedIn = useSelector((state) => state.loggin.loggedIn)
 
   const theme = createTheme({
     components: {
@@ -34,7 +35,8 @@ function App() {
   })
   return (
     <ThemeProvider theme={theme}>
-      {loggedIn ? <LoginPage /> : <MainPage />}
+      <MainPage />
+      {/* {loggedIn ? <MainPage /> : <LoginPage />} */}
     </ThemeProvider>
   )
 }

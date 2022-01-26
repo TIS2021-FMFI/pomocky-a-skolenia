@@ -9,7 +9,7 @@ import {
 import { keyToText as k } from '../../helpers/keysToText'
 import { SkoleniaZamestnanca } from '../../types'
 
-import styles from './CoursesTableWrapper.module.css'
+import styles from './TableWrapper.module.css'
 
 type CoursesTableWrapperProps = {
   columns: any[]
