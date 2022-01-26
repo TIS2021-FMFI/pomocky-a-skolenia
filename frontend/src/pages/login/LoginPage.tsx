@@ -1,56 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import "./LoginStyle.css";
-import logo from './logoW.png';
+
+
+//const [errorMessages, setErrorMessages] = useState({});
+//const [isSubmitted, setIsSubmitted] = useState(false);
+
+// User Login info
+const database = [
+    {
+        email: "admin@gmail.com",
+        password: "admin"
+    },
+];
+
+const errors = {
+    email: "invalid email",
+    pass: "invalid password"
+};
 
 class LoginPage extends React.Component {
-    // @ts-ignore
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: [
-                { email: "admin1@gmail.com", password: "admin1" },
-                { email: "admin2@gmail.com", password: "admin2" },
-                { email: "admin3@gmail.com", password: "admin3" }
-            ],
-            trueUsername: "",
-            isSign: false
-        };
-        //this.new = this.props;
-    }
 
-    /*Control = () => {
-        var newState = this.state.users.concat(this.new.newUser);
-        if (this.new.newUser !== undefined) {
-            this.setState({
-                users: newState
-            });
-        }
 
-        var email = document.getElementById("email");
-        var password = document.getElementById("password");
-        this.state.users.map(user => {
-            if (
-                user.email === email.value &&
-                user.password === password.value
-            ) {
-                return this.setState({
-                    welcomeConnect: true,
-                    trueUsername: user.email
-                });
+
+/*
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        var { email, pass } = document.forms[0];
+
+        // Find user login info
+        const userData = database.find((user) => user.email === email.value);
+
+        // Compare user info
+        if (userData) {
+            if (userData.password !== pass.value) {
+                // Invalid password
+                setErrorMessages({ name: "pass", message: errors.pass });
+            } else {
+                setIsSubmitted(true);
             }
-        });
-    };*/
+        } else {
+            // Username not found
+            setErrorMessages({ name: "email", message: errors.email });
+        }
+    };
 
+    // Generate JSX code for error message
+    const renderErrorMessage = (name) =>
+        name === errorMessages.name && (
+            <div className="error">{errorMessages.message}</div>
+        );
+
+ */
 
     render() {
         return (
-            <div>
-                <div className="logo">
-                    <img src={logo} alt="Logo" />
-                </div>
+            <div className="MainImage">
 
-                <div className="loginSquare">
-                    <h1>Vitajte na GEFCO portály</h1>
                     <div className="loginForm">
                         <h2>Prihlásenie</h2>
                         <input
@@ -71,7 +77,6 @@ class LoginPage extends React.Component {
                         </button>
                     </div>
                 </div>
-            </div>
         );
     }
 }
