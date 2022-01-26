@@ -88,7 +88,8 @@ const EmployeeModal = ({
                   />
                 </Box>
 
-                <Box>
+                <Box display={'flex'} flexDirection={'row'}>
+                  <Typography width={120}>Faktúra</Typography>
                   <MyRadio
                     name="fa"
                     type="radio"
@@ -108,7 +109,8 @@ const EmployeeModal = ({
                     label={Fa.LEASING}
                   />
                 </Box>
-                <Box>
+                <Box display={'flex'} flexDirection={'row'}>
+                  <Typography width={120}>Káva</Typography>
                   <MyRadio
                     name="kava"
                     type="radio"
