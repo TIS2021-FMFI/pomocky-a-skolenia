@@ -4,11 +4,10 @@ import {
   Oblast,
   SkoleniaZamestnanca,
   Skolenie,
+    Login,
 } from '../types'
 
-const TESTING_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiYWRtaW4iLCJpc19hZG1pbiI6dHJ1ZX0sImlhdCI6MTY0MTkxODg5MSwiZXhwIjoxNjczNDU0ODkxfQ.XLgxjyWcPwano4pjqlqxP8qrymdr1R8aJDYZeCYwZjI'
-
+let TESTING_TOKEN =''
 export const fetchEmployees = async (): Promise<EmployeeData[]> => {
   return fetch('/zamestnanci', {
     method: 'get',
@@ -252,4 +251,30 @@ export const pridajSkoleniaZamestnancom = async (
         return false
       }
     )
+}
+
+export const login = async (data: Login): Promise<any> => {
+    return fetch('/login', {
+        method: 'post',
+        headers: {
+            'x-access-token': TESTING_TOKEN,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then((res) => res.json())
+        .then(
+            (result) => {
+                TESTING_TOKEN = result.token
+                if(result.message === 'Invalid Credentials'){
+                    return null
+                }
+                console.log('Result:',result)
+                return result
+            },
+            (error) => {
+                console.log('Error:',error)
+                return null
+            }
+        )
 }
