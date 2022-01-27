@@ -3,7 +3,7 @@ import MainPage from "./pages/main/MainPage";
 import "./style.css"
 
 const App = () => {
-  const loggedIn = false // this will be moved
+  const loggedIn = true // this will be moved
   return (
     <div className="App">
       {loggedIn ? <LoginPage/> : <MainPage/>}

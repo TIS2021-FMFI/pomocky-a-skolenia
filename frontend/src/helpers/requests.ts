@@ -1,9 +1,11 @@
 import {
-  CourseBeforeExpire,
-  EmployeeData,
-  Oblast,
-  SkoleniaZamestnanca,
-  Skolenie,
+    CourseBeforeExpire,
+    EmployeeData,
+    Oblast,
+    SkoleniaZamestnanca,
+    Skolenie,
+    PasswordChange,
+    AddUser,
     Login,
 } from '../types'
 
@@ -251,6 +253,49 @@ export const pridajSkoleniaZamestnancom = async (
         return false
       }
     )
+}
+
+ export const zmenHeslo = async (heslo: PasswordChange): Promise<boolean> => {
+     return fetch('/upravheslo', {
+         method: 'put',
+         headers: {
+            'x-access-token': TESTING_TOKEN,
+             'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(heslo),
+     })
+         .then((res) => res.json())
+         .then(
+             (result) => {
+                 return true
+             },
+             (error) => {
+                 console.log(error)
+                 return false
+             }
+         )
+}
+
+export const pridajUzivatela = async (uzivatel: AddUser): Promise<boolean> => {
+    return fetch('/register', {
+        method: 'post',
+        headers: {
+            'x-access-token': TESTING_TOKEN,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(uzivatel),
+    })
+        .then((res) => res.json())
+        .then(
+            (result) => {
+                return true
+            },
+            (error) => {
+                console.log(error)
+                return false
+            }
+        )
 }
 
 export const login = async (data: Login): Promise<any> => {

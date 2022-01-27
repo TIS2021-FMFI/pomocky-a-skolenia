@@ -106,6 +106,17 @@ export type CourseBeforeExpire = {
   priezvisko: string
 }
 
+export type PasswordChange = {
+  password: string
+  newpassword: string
+}
+
+export type AddUser = {
+  email:string
+  is_admin: boolean
+  oblasti: string[]
+}
+
 export type Login = {
   email: string
   password: string
