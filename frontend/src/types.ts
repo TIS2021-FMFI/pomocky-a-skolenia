@@ -112,9 +112,9 @@ export type PasswordChange = {
 }
 
 export type AddUser = {
-  email:string
+  email: string
   is_admin: boolean
-  oblasti: string[]
+  oblasti: number[]
 }
 
 export type Login = {

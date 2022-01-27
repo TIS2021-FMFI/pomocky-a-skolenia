@@ -26,8 +26,6 @@ const CoursesBeforeExpireTab = () => {
   })
 
   useEffect(() => {
-    console.log(regionsToShow)
-
     if (regionsToShow.length === 0) setRowsToShow(konciaceSkolenia)
     else {
       setRowsToShow(
