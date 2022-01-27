@@ -105,3 +105,8 @@ export type CourseBeforeExpire = {
   oblast: string
   priezvisko: string
 }
+
+export type Login = {
+  email: string
+  password: string
+}
