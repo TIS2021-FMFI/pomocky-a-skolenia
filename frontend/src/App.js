@@ -3,8 +3,8 @@ import LoginPage from './pages/login/LoginPage'
 import MainPage from './pages/main/MainPage'
 import { createTheme } from '@mui/material/styles'
 import { gefcoPalette } from './pages/style/palette'
-import { useSelector } from 'react-redux'
 import './style.css'
+import { useSelector } from 'react-redux'
 
 function App() {
   const loggedIn = useSelector((state) => state.loggin.loggedIn)
@@ -33,11 +33,11 @@ function App() {
     },
     palette: gefcoPalette,
   })
+
   return (
-    <ThemeProvider theme={theme}>
-      <MainPage />
-      {/* {loggedIn ? <MainPage /> : <LoginPage />} */}
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        {loggedIn ? <MainPage /> : <LoginPage />}
+      </ThemeProvider>
   )
 }
 
