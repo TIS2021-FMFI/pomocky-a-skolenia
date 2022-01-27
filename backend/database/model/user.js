@@ -8,10 +8,10 @@ const {transporter} = require("../../middleware/mailer");
 const register = async (request, response) => {
     let encryptedPassword;
     try {
-        const {email, password, is_admin, oblasti} = JSON.parse(JSON.stringify(request.body, reversedReplacer));
+        const {email, is_admin, oblasti} = JSON.parse(JSON.stringify(request.body, reversedReplacer));
 
-        if (!(email && password)) {
-            response.status(400).send({message:"All input is required"});
+        if (!(email)) {
+            response.status(400).send({message:"Email is required"});
         }
 
         const queryText = 'SELECT * FROM pouzivatelia WHERE email=$1'
@@ -21,7 +21,16 @@ const register = async (request, response) => {
             return response.status(409).send({message:"User Already Exist. Please Login"});
         }
 
-        encryptedPassword = await hashPassword(password);
+        const newpassword = generatePassword()
+
+        const mailOptions = {
+            from: config['MAILER']['EMAIL'],
+            to: email,
+            subject: "Heslo do systému",
+            text: 'Heslo je :' + newpassword
+        };
+
+        encryptedPassword = await hashPassword(newpassword);
 
         const queryText2 = 'INSERT INTO pouzivatelia(email, heslo, is_admin) VALUES ($1, $2, $3) RETURNING id'
         const id = await pool.query(queryText2, [email, encryptedPassword, is_admin])
@@ -41,7 +50,13 @@ const register = async (request, response) => {
             }
             await pool.query('COMMIT')
         }
-
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                return response.status(408).send({message:"Email wasnt send"});
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
         response.status(200).send({message:'REGISTER was successful'});
     } catch (error) {
         response.status(400).send({message:'REGISTER was not successful',"error code":error.code ,error: error.message})
