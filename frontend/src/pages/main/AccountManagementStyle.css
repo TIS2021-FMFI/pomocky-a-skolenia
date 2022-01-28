@@ -6,7 +6,7 @@
 }
 
 .accountForm, .accountForm2{
-    width: 22vw;
+    width: 30vw;
     height: 300px;
     margin-top: 15%;
     display:  flex;
@@ -17,11 +17,16 @@
 .accountForm{
     float: left;
     margin-left: 10%;
+    font-weight: 100;
 }
 
 .accountForm2{
     float: right;
     margin-right: 15%;
+
+}
+#multi {
+    width: 80px;
 }
 
 .verticalLine {

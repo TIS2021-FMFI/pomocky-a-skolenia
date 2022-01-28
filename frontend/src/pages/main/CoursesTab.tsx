@@ -85,8 +85,6 @@ const CoursesTab = () => {
   }, [nameInput, surnameInput, skoleniaZamestnancov])
 
   useEffect(() => {
-    console.log(columns)
-
     setColumnsToShow(
       columns.filter((col) => {
         return (

@@ -4,10 +4,12 @@ import {
   Oblast,
   SkoleniaZamestnanca,
   Skolenie,
-    Login,
+  PasswordChange,
+  AddUser,
+  Login,
 } from '../types'
 
-let TESTING_TOKEN =''
+let TESTING_TOKEN = ''
 export const fetchEmployees = async (): Promise<EmployeeData[]> => {
   return fetch('/zamestnanci', {
     method: 'get',
@@ -185,19 +187,7 @@ export const fetchKonciaceSkolenia = async (): Promise<
     .then((res) => res.json())
     .then(
       (result) => {
-        console.log(result)
-
-        // result = result.slice(0, 20)
         return result
-        // return result.map((o: any) => ({
-        //   meno: o.meno,
-        //   priezvisko: o.priezvisko,
-        //   kod_skolenia: o.kod_skolenia,
-        //   dlzka_platnosti: o.dlzka_platnosti,
-        //   datum_absolvovania: o.datum_absolvovania,
-        //   koniec_platnosti: o.koniec_platnosti,
-        //   oblast: o.oblast,
-        // }))
       },
       (error) => {
         return []
@@ -253,28 +243,69 @@ export const pridajSkoleniaZamestnancom = async (
     )
 }
 
+export const zmenHeslo = async (heslo: PasswordChange): Promise<boolean> => {
+  return fetch('/upravheslo', {
+    method: 'put',
+    headers: {
+      'x-access-token': TESTING_TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(heslo),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        return true
+      },
+      (error) => {
+        console.log(error)
+        return false
+      }
+    )
+}
+
+export const pridajUzivatela = async (uzivatel: AddUser): Promise<boolean> => {
+  return fetch('/register', {
+    method: 'post',
+    headers: {
+      'x-access-token': TESTING_TOKEN,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(uzivatel),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        return true
+      },
+      (error) => {
+        console.log(error)
+        return false
+      }
+    )
+}
+
 export const login = async (data: Login): Promise<any> => {
-    return fetch('/login', {
-        method: 'post',
-        headers: {
-            'x-access-token': TESTING_TOKEN,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-        .then((res) => res.json())
-        .then(
-            (result) => {
-                TESTING_TOKEN = result.token
-                if(result.message === 'Invalid Credentials'){
-                    return null
-                }
-                console.log('Result:',result)
-                return result
-            },
-            (error) => {
-                console.log('Error:',error)
-                return null
-            }
-        )
+  return fetch('/login', {
+    method: 'post',
+    headers: {
+      'x-access-token': TESTING_TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        TESTING_TOKEN = result.token
+        if (result.message === 'Invalid Credentials') {
+          return null
+        }
+        return result
+      },
+      (error) => {
+        return null
+      }
+    )
 }
