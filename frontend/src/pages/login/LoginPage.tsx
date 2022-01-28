@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setLoggedIn, setIsAdmin } from '../../features/loginSlice'
 import { login } from '../../helpers/requests'
 import './LoginStyle.css'
+import logo from './logo-white.png'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -22,6 +23,7 @@ const LoginPage = () => {
 
   return (
     <div className="MainImage">
+      <div className="logo"><img src={logo} alt="Logo"/></div>
       <div className="loginForm">
         <h2>Prihlásenie</h2>
 
@@ -31,6 +33,7 @@ const LoginPage = () => {
           className="form-control"
           placeholder="Zadajte svoj email"
           autoComplete="false"
+          value={email}
           onChange={(e) => {
             setEmail(e.target.value)
           }}
@@ -40,11 +43,12 @@ const LoginPage = () => {
           id="password"
           className="form-control"
           placeholder="Zadajte svoje heslo"
+          value={password}
           onChange={(e) => {
             setPassword(e.target.value)
           }}
         />
-        <button className="login-btn" onClick={() => handleSubmit()}>
+        <button disabled={!email || !password} className="login-btn" onClick={() => handleSubmit()}>
           Prihlásiť
         </button>
         {error ? <div className="loginError">{error}</div> : <></>}
