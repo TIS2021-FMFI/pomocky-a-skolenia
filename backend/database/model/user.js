@@ -23,12 +23,16 @@ const register = async (request, response) => {
 
         const newpassword = generatePassword()
 
+        const textForNewUser = 'Vitajte v systéme GEFCO! \n' +
+            'Boli ste pridaný medzi nových používateľov. Prihlasovacie údaje ' +
+            'sú Váš mail a heslo: ' + newpassword + ' \nPo prvom prihlásení odporúčame heslo zmeniť.'
+
         const mailOptions = {
             from: config['MAILER']['EMAIL'],
             to: email,
-            subject: "Heslo do systému",
-            text: 'Heslo je :' + newpassword
-        };
+            subject: 'Nový používateľ GEFCO',
+            text: textForNewUser,
+        }
 
         encryptedPassword = await hashPassword(newpassword);
 
