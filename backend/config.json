@@ -13,5 +13,9 @@
     "EMAIL": "notifikacie.noreplay@gmail.com",
     "HESLO": "ncvtpfztgcfxwswx",
     "SERVICE": "gmail"
+  },
+  "NOTIFY": {
+    "HOUR": 9,
+    "DAYOFMONTH": 1
   }
 }

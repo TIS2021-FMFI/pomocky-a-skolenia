@@ -1,4 +1,6 @@
 const { pool } = require('../database')
+const logger = require("../../middleware/logger");
+
 const {
   replacer,
   reversedReplacer,
@@ -39,6 +41,7 @@ const getByID = async (request, response) => {
 }
 
 const addSkolenie = async (request, response) => {
+  const user = request.user["user"]
   const { kod_skolenia, nazov, dlzka_platnosti, oblast, popis } = JSON.parse(
     JSON.stringify(request.body, reversedReplacer)
   )
@@ -62,6 +65,7 @@ const addSkolenie = async (request, response) => {
     ])
     await pool.query('COMMIT')
     response.status(200).send({ message: 'Insertion was successful' })
+    logger.info(`${user.email} pridal skolenie: ${kod_skolenia}`);
   } catch (error) {
     await pool.query('ROLLBACK')
     response.status(400).send({
@@ -74,11 +78,15 @@ const addSkolenie = async (request, response) => {
 
 const updateSkolenie = async (request, response) => {
   const id = request.body.id
+  const user = request.user["user"]
   const { kod_skolenia, nazov, dlzka_platnosti, oblast, popis } = JSON.parse(
     JSON.stringify(request.body, reversedReplacer)
   )
   try {
     await pool.query('BEGIN')
+    let olduser = await pool.query('SELECT * FROM skolenia WHERE id=$1', [id]);
+    const old = olduser.rows[0]
+
     const ob = await pool.query('SELECT * FROM oblast WHERE oblast=$1', [
       oblast,
     ])
@@ -97,6 +105,7 @@ const updateSkolenie = async (request, response) => {
     ])
     await pool.query('COMMIT')
     response.status(200).send({ message: 'UPDATE was successful' })
+    logger.info(`${user.email} upravil skolenie: ${old.kod_skolenia} na ${kod_skolenia}`);
   } catch (error) {
     await pool.query('ROLLBACK')
     response.status(400).send({
@@ -188,18 +197,28 @@ const endingSkolenia = async (request, response) => {
 
 const addSkolenieZamest = async (request, response) => {
   const { id_zamestnancov, id_skolenia, datum } = request.body
+  const user = request.user["user"]
   let errorlog = []
   let queryText =
     'INSERT INTO zamestnanci_skolenia(id_zamestnanca, id_skolenia, datum_absolvovania) VALUES($1,$2,$3) ON conflict(id_zamestnanca, id_skolenia) DO update set datum_absolvovania=EXCLUDED.datum_absolvovania'
   for (const id_zamestnanca of id_zamestnancov) {
     try {
       await pool.query(queryText, [id_zamestnanca, id_skolenia, datum])
+      let olduser = await pool.query('SELECT * FROM zamestnanci WHERE id=$1', [id_zamestnanca]);
+      const old = olduser.rows[0]
+
+      let oldskolenie = await pool.query('SELECT * FROM skolenia WHERE id=$1', [id_skolenia]);
+      const olds = oldskolenie.rows[0]
+
+      logger.info(`${user.email} pridal skolenie:${olds.kod_skolenia} -> ${old.meno} ${old.priezvisko}:${old.osobne_cislo} `);
+
     } catch (error) {
       errorlog.push(error)
     }
   }
   if (errorlog.length === 0) {
     response.status(200).send({ message: 'Insertion was successful' })
+
   } else {
     response
       .status(400)
@@ -208,6 +227,7 @@ const addSkolenieZamest = async (request, response) => {
 }
 
 const updateSkolenieZam = async (request, response) => {
+  const user = request.user["user"]
   const { id_zamestnanca, id_skolenia, datum } = JSON.parse(
     JSON.stringify(request.body, reversedReplacer)
   )
@@ -215,6 +235,13 @@ const updateSkolenieZam = async (request, response) => {
     const queryText =
       'UPDATE zamestnanci_skolenia SET datum_absolvovania=$1 WHERE id_zamestnanca=$2 AND id_skolenia=$3'
     await pool.query(queryText, [datum, id_zamestnanca, id_skolenia])
+    let olduser = await pool.query('SELECT * FROM zamestnanci WHERE id=$1', [id_zamestnanca]);
+    const old = olduser.rows[0]
+
+    let oldskolenie = await pool.query('SELECT * FROM skolenia WHERE id=$1', [id_skolenia]);
+    const olds = oldskolenie.rows[0]
+
+    logger.info(`${user.email} upravil skolenie:${olds.kod_skolenia} na ${olds.kod_skolenia},${datum} -> ${old.meno} ${old.priezvisko}:${old.osobne_cislo}`);
     response.status(200).send({ message: 'UPDATE was successful' })
   } catch (error) {
     response.status(400).send({
