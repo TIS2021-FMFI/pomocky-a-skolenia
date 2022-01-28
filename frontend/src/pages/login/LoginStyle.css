@@ -12,7 +12,7 @@ body {
     font-weight: bold;
 }
 .MainImage{
-    background-image: url("gefco-truck.jpg");
+    background-image: url("gefco.jpg");
     background-color: #00538B;
     height: 100vh;
     background-repeat: no-repeat;
@@ -85,7 +85,7 @@ body {
 }
 
 .form-control, .login-btn{
-    width:  24vw;
+    width: 24vw;
 }
 
 .form-control, .login-btn, .loginForm h2{
@@ -93,4 +93,13 @@ body {
     margin-right: auto;
 }
 
-
+.logo img{
+    width: 17vw;
+    height: auto;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.button2{
+    width: 24vw;
+}
