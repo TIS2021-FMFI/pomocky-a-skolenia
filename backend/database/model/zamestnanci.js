@@ -1,5 +1,6 @@
 const {pool} = require("../database");
 const {replacer, reversedReplacer, oblastiToList} = require("../../functions");
+const logger = require("../../middleware/logger");
 
 const getAll = async (request, response) => {
     await pool.query('SELECT * FROM zamestnanci', async (error, results) => {
@@ -49,12 +50,16 @@ const getAllpoz = async (request, response) => {
 
 const updateUser = async (request, response) => {
     const id = request.body.id
+    const user = request.user["user"]
     const {
         bufetka, datum_vydania, fa, karticka, kava, meno, oblast, osobne_cislo, pozicia, priezvisko, vzv, winnex, zfsatna, zfskrinka
     } = JSON.parse(JSON.stringify(request.body, reversedReplacer));
 
     try {
         await pool.query('BEGIN')
+        let olduser = await pool.query('SELECT * FROM zamestnanci WHERE id=$1', [id]);
+        const old = olduser.rows[0]
+
         const ob = await pool.query('SELECT * FROM oblast WHERE oblast=$1',[oblast])
 
         if (ob.rowCount === 0){
@@ -64,23 +69,31 @@ const updateUser = async (request, response) => {
         await pool.query(queryText, [priezvisko, meno, pozicia, fa, oblast, karticka, osobne_cislo, kava, vzv, datum_vydania, bufetka, zfsatna, zfskrinka, winnex, id])
         await pool.query('COMMIT')
         response.status(200).send({message:'UPDATE was successful'})
+        logger.info(`${user.email} upravil zamestnanec: ${old.meno} ${old.priezvisko}:${old.osobne_cislo} na ${meno} ${priezvisko}:${osobne_cislo}`);
     }catch (error){
         await pool.query('ROLLBACK')
         response.status(400).send({message:'UPDATE was not successful', "error code":error.code, error:error.message})
     }
+
 }
 
 const deleteUser = async (request, response) => {
     const id = request.body.id
+    const user = request.user["user"]
     try {
+        let olduser = await pool.query('SELECT * FROM zamestnanci WHERE id=$1', [id]);
+        const old = olduser.rows[0]
         await pool.query('DELETE FROM zamestnanci WHERE id=$1', [id])
         response.status(200).send({message:'DELETE was successful'})
+        logger.info(`${user.email} zmazal zamestnaneca ${old.meno} ${old.priezvisko}:${old.osobne_cislo}` );
+
     }catch (error){
         response.status(400).send({message:'DELETE was not successful', "error code":error.code, error:error.message})
     }
 }
 
 const addUser = async (request, response) => {
+    const user = request.user["user"]
     const {
         bufetka, datum_vydania, fa, karticka, kava, meno, oblast, osobne_cislo, pozicia, priezvisko, vzv, winnex, zfsatna, zfskrinka
     } = JSON.parse(JSON.stringify(request.body, reversedReplacer));
@@ -94,6 +107,7 @@ const addUser = async (request, response) => {
         await pool.query(queryText, [priezvisko, meno, pozicia, fa, oblast, karticka, osobne_cislo, kava, vzv, datum_vydania, bufetka, zfsatna, zfskrinka, winnex])
         await pool.query('COMMIT')
         response.status(200).send({message:'Insertion was successful'})
+        logger.info(`${user.email} pridal zamestnaneca: ${meno} ${priezvisko}:${osobne_cislo}`);
     }
     catch (error) {
         await pool.query('ROLLBACK')
