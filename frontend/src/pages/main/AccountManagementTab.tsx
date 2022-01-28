@@ -57,7 +57,7 @@ const AccountManagementTab = () => {
           <input
             type="password"
             id="password"
-            className="form-control"
+            className="form-control2"
             placeholder="Zadajte staré heslo"
             onChange={(e) => {
               setPassword(e.target.value)
@@ -125,6 +125,7 @@ const AccountManagementTab = () => {
                   <label>Nie</label>
                 </div>
                 <Button
+                    className="button2"
                   variant="contained"
                   onClick={() => handleSubmit2()}
                   disabled={!is_admin && oblasti.length === 0}
