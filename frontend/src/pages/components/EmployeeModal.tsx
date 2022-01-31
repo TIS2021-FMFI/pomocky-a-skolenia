@@ -12,6 +12,7 @@ import MyRadio from './MyRadio'
 import { useState } from 'react'
 import { RootState } from '../../app/store'
 import { useSelector } from 'react-redux'
+import { keyToText as k } from '../../helpers/keysToText'
 
 type EmployeeModalProps = {
   open: boolean
@@ -100,13 +101,13 @@ const EmployeeModal = ({
                     name="fa"
                     type="radio"
                     value={Fa.AGENTURA}
-                    label={Fa.AGENTURA}
+                    label={k(Fa.AGENTURA)}
                   />
                   <MyRadio
                     name="fa"
                     type="radio"
                     value={Fa.LEASING}
-                    label={Fa.LEASING}
+                    label={k(Fa.LEASING)}
                   />
                 </Box>
                 <Box display={'flex'} flexDirection={'row'}>
