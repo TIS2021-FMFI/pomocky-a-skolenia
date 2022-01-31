@@ -19,6 +19,10 @@ const keyTextDict: { [key: string]: string } = {
   koniec_platnosti: 'Koniec platnosti',
   dlzka_platnosti: 'Dĺžka platnosti',
   pocet_dni_platnosti: 'Počet dní platnosti',
+  nazov: 'Názov',
+  popis: 'Popis',
+  Agentura: 'Agentúra',
+  leasing: 'Leasing',
 }
 
 export const keyToText = (key: string): string => {

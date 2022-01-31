@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { RootState } from '../../app/store'
 import './AccountManagementStyle.css'
 import { pridajUzivatela, zmenHeslo } from '../../helpers/requests'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import MultiSelect from '../components/MultiSelect'
 import { Button } from '@mui/material'
 
@@ -14,7 +14,6 @@ const AccountManagementTab = () => {
   const [error2, setError2] = useState<string>('')
   const [done1, setDone1] = useState<string>('')
   const [done2, setDone2] = useState<string>('')
-  const dispatch = useDispatch()
 
   const isAdmin = useSelector((state: RootState) => state.loggin.isAdmin)
 
@@ -110,6 +109,7 @@ const AccountManagementTab = () => {
                   <input
                     type={'radio'}
                     name="admin"
+                    checked={is_admin}
                     onChange={(e) => {
                       setAdmin(true)
                     }}
@@ -118,6 +118,7 @@ const AccountManagementTab = () => {
                   <input
                     type={'radio'}
                     name="admin"
+                    checked={!is_admin}
                     onChange={(e) => {
                       setAdmin(false)
                     }}
@@ -125,10 +126,10 @@ const AccountManagementTab = () => {
                   <label>Nie</label>
                 </div>
                 <Button
-                    className="button2"
+                  className="button2"
                   variant="contained"
                   onClick={() => handleSubmit2()}
-                  disabled={!is_admin && oblasti.length === 0}
+                  disabled={(!is_admin && oblasti.length === 0) || email === ''}
                 >
                   Pridať
                 </Button>
