@@ -20,7 +20,7 @@ const keyTextDict: { [key: string]: string } = {
   dlzka_platnosti: 'Dĺžka platnosti',
   pocet_dni_platnosti: 'Počet dní platnosti',
   nazov: 'Názov',
-  popis: 'Poips',
+  popis: 'Popis',
   Agentura: 'Agentúra',
   leasing: 'Leasing',
 }
