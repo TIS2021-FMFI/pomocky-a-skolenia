@@ -29,15 +29,33 @@ const EmployeeTableWrapper = ({
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column: any) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  <b>{k(column.label)}</b>
-                </TableCell>
-              ))}
+              {columns.map((column: any) => {
+                const isSticky =
+                  column.id === 'meno' ||
+                  column.id === 'priezvisko' ||
+                  column.id === ''
+
+                let size = 0
+
+                if (column.id === 'meno') size = 140
+                if (column.id === 'priezvisko') size = 2 * 140
+                return (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    sx={{
+                      minWidth: column.minWidth,
+                      verticalAlign: 'bottom',
+                      position: 'sticky',
+                      left: size,
+                      zIndex: isSticky ? 2 : 1,
+                      background: 'white',
+                    }}
+                  >
+                    <b>{k(column.label)}</b>
+                  </TableCell>
+                )
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -46,9 +64,30 @@ const EmployeeTableWrapper = ({
                 <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                   {columns.map((column) => {
                     const value = row[column.id]
+                    const isSticky =
+                      column.id === 'meno' ||
+                      column.id === 'priezvisko' ||
+                      column.id === ''
+
+                    let size = 0
+
+                    if (column.id === 'meno') size = 140
+                    if (column.id === 'priezvisko') size = 2 * 140
                     return column.id === '' ? (
-                      <TableCell key={column.id} align="center">
-                        <Box display={'flex'} flexDirection={'column'}>
+                      <TableCell
+                        key={column.id}
+                        align="center"
+                        sx={{
+                          position: isSticky ? 'sticky' : 'static',
+                          left: size,
+                          background: 'white',
+                        }}
+                      >
+                        <Box
+                          display={'flex'}
+                          flexDirection={'column'}
+                          sx={{ position: 'sticky' }}
+                        >
                           <Button
                             variant="contained"
                             size="small"
@@ -66,7 +105,15 @@ const EmployeeTableWrapper = ({
                         </Box>
                       </TableCell>
                     ) : (
-                      <TableCell key={column.id} align={'left'}>
+                      <TableCell
+                        key={column.id}
+                        align={'left'}
+                        sx={{
+                          position: isSticky ? 'sticky' : 'static',
+                          left: size,
+                          background: 'white',
+                        }}
+                      >
                         {column.id === 'datum_vydania'
                           ? !!value
                             ? new Date(value).toLocaleDateString('sk-SK')
