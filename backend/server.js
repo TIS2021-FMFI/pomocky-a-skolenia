@@ -5,7 +5,6 @@ const config = require('./config.json')
 const auth = require('./middleware/auth')
 const cron = require('node-cron')
 const notify = config["NOTIFY"]
-const {CSVKonciace} = require("./middleware/csvwriter");
 
 const app = express()
 
