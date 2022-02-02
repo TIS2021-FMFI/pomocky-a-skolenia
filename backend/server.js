@@ -46,9 +46,6 @@ app.post('/resetheslo', database.user.resetPasswd)
 app.get('/uzivatelia',auth ,database.user.getAll)
 app.delete('/zmazuzivatela', auth, database.user.deleteUser)
 
-app.get('/csv-konciace',auth ,CSVKonciace)
-
-
 app.get('/log',auth, async (req, res) => {
     await res.download('logs/server.log');
 })
