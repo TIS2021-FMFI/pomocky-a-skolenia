@@ -92,7 +92,7 @@ const EmployeeTab = () => {
       <Box
         display={'flex'}
         flexDirection={'column'}
-        style={{ width: '100hw', height: '100vh' }}
+        sx={{ width: '100hw', height: '100vh' }}
       >
         <Box display={'flex'} flexDirection={'row'}>
           <TextField

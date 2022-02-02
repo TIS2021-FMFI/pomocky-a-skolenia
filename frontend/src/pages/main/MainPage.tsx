@@ -5,12 +5,12 @@ import {
   fetchKonciaceSkolenia,
   fetchRegions,
   fetchSkolenia,
-  fetchSkoleniaZamestnancov, login,
+  fetchSkoleniaZamestnancov,
 } from '../../helpers/requests'
 import CoursesBeforeExpireTab from './CoursesBeforeExpireTab'
 import CoursesTab from './CoursesTab'
 import EmployeeTab from './EmployeeTab'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setZamestnanci } from '../../features/zamestnanciSlice'
 import { setOblasti } from '../../features/oblastiSlice'
 import { setSkolenia } from '../../features/skoleniaSlice'
@@ -19,9 +19,9 @@ import { setKonciaceSkolenia } from '../../features/konciaceSkoleniaSlice'
 import styles from './MainPage.module.css'
 import '../login/LoginStyle.css'
 import { setSkoleniaZamestnancov } from '../../features/skoleniaZamestnancovSlice'
-import AccountManagementTab from "./AccountManagementTab";
-import {RootState} from "../../app/store";
-import {setLoggedIn} from "../../features/loginSlice";
+import AccountManagementTab from './AccountManagementTab'
+import { RootState } from '../../app/store'
+import { setLoggedIn } from '../../features/loginSlice'
 
 const MainPage = () => {
   const [tabValue, setTabValue] = useState<number>(1)
@@ -43,7 +43,7 @@ const MainPage = () => {
   const isAdmin = useSelector((state: RootState) => state.loggin.isAdmin)
 
   const handleSubmit = async () => {
-      dispatch(setLoggedIn(false))
+    dispatch(setLoggedIn(false))
   }
 
   return (
@@ -65,16 +65,14 @@ const MainPage = () => {
           lg={1}
           xl={1}
         >
-
           <p className="statusOfUser">
-            {isAdmin ? "Administrátor": "Nadriadený"}
+            {isAdmin ? 'Administrátor' : 'Nadriadený'}
           </p>
           <Tabs
             orientation={largeScreen ? 'vertical' : 'horizontal'}
             value={tabValue}
             indicatorColor="primary"
           >
-            
             <Tab
               label="Končiace školenia"
               color={'secondary.contrastText'}
@@ -91,15 +89,14 @@ const MainPage = () => {
               onClick={() => setTabValue(2)}
             />
             <Tab
-                label="Správa účtu"
-                color={'secondary.contrastText'}
-                onClick={() => setTabValue(3)}
+              label="Správa účtu"
+              color={'secondary.contrastText'}
+              onClick={() => setTabValue(3)}
             />
           </Tabs>
           <button className="logOutbtn" onClick={() => handleSubmit()}>
             Odhlásiť
           </button>
-
         </Grid>
         <Grid
           md={11}
@@ -114,7 +111,6 @@ const MainPage = () => {
           {tabValue === 3 && <AccountManagementTab />}
         </Grid>
       </Grid>
-      
     </>
   )
 }
