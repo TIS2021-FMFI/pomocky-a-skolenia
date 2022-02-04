@@ -121,3 +121,24 @@ export type Login = {
   email: string
   password: string
 }
+export type PasswordReset = {
+  email: string
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
