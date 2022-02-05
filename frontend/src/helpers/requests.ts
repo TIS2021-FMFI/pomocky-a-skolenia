@@ -325,7 +325,6 @@ export const resetPasswd = async (email: string): Promise<boolean> => {
         return true
       },
       (error) => {
-        console.log('err:', error)
         return false
       }
     )
