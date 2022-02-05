@@ -22,7 +22,7 @@ body {
     top: 0;
 }
 
-.loginForm h2{
+.loginForm h2, .loginForm2 h2{
     padding-top: 25%;
     font-size: 45px;
     color: #ffffff;
@@ -30,7 +30,7 @@ body {
     text-shadow: 1px 2px #000000;
 }
 
-.login-btn, .account-btn, .logOutbtn{
+.login-btn, .account-btn, .logOutbtn, .forgot-password-btn{
     box-sizing: border-box;
     outline: 0;
     border: 0;
@@ -57,7 +57,7 @@ body {
     width: auto;
 }
 
-.loginForm{
+.loginForm, .loginForm2{
     /*background-color: rgba(0, 83, 139, 0.6);*/
     background-color: rgba(0, 0, 0, 0.6);
     width: 40vw;
@@ -91,7 +91,7 @@ body {
     width: 24vw;
 }
 
-.form-control, .login-btn, .loginForm h2{
+.form-control, .login-btn, .loginForm h2, .loginForm2 h2{
     margin-left: auto;
     margin-right: auto;
 }
@@ -111,6 +111,15 @@ body {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     color: #FFCD00;
     text-align: center;
-    fontweight: bold;
     font-size: 15px;
+}
+
+.forgot-password-btn{
+    background-color: transparent;
+    color: #FFCD00;
+    padding: 20px 0 0;
+    width: 160px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
 }
