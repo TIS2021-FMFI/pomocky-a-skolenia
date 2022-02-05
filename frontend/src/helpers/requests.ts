@@ -309,3 +309,23 @@ export const login = async (data: Login): Promise<any> => {
       }
     )
 }
+
+export const resetPasswd = async (email: string): Promise<boolean> => {
+  return fetch('/resetheslo', {
+    method: 'post',
+    headers: {
+      'x-access-token': TESTING_TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: email }),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        return true
+      },
+      (error) => {
+        return false
+      }
+    )
+}
