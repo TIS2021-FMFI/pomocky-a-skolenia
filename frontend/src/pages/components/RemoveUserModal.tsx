@@ -34,7 +34,7 @@ const RemoveUserModal = ({
         className={styles.wh}
       >
         <Typography>
-          Naozaj chcete odstráňiť používateľa s emailom <b>{email}</b>, tento
+          Naozaj chcete odstrániť používateľa s emailom <b>{email}</b>, tento
           proces je trvalý a nenávratný.
         </Typography>
         <Box

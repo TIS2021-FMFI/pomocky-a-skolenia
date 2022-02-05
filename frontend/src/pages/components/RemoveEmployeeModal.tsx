@@ -34,7 +34,7 @@ const RemoveEmployeeModal = ({
         className={styles.wh}
       >
         <Typography>
-          Naozaj chcete odstráňiť zamestnanca{' '}
+          Naozaj chcete odstrániť zamestnanca{' '}
           <b>{employee.meno + ' ' + employee.priezvisko}</b>, tento proces je
           trvalý a nenávratný.
         </Typography>
