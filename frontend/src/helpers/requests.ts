@@ -5,7 +5,6 @@ import {
   SkoleniaZamestnanca,
   Skolenie,
   PasswordChange,
-    PasswordReset,
   AddUser,
   Login,
 } from '../types'
@@ -311,23 +310,23 @@ export const login = async (data: Login): Promise<any> => {
     )
 }
 
-export const resetPasswd = async ( email : string): Promise<boolean> => {
-    return fetch('/resetPasswd', {
-        method: 'put',
-        headers: {
-            'x-access-token': TESTING_TOKEN,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(email),
-    })
-        .then((res) => res.json())
-        .then(
-            (result) => {
-                return true
-            },
-            (error) => {
-                console.log(error)
-                return false
-            }
-        )
+export const resetPasswd = async (email: string): Promise<boolean> => {
+  return fetch('/resetheslo', {
+    method: 'post',
+    headers: {
+      'x-access-token': TESTING_TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: email }),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        return true
+      },
+      (error) => {
+        console.log('err:', error)
+        return false
+      }
+    )
 }
