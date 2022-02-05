@@ -7,14 +7,15 @@ import {
   PasswordChange,
   AddUser,
   Login,
+  User,
 } from '../types'
 
-let TESTING_TOKEN = ''
+let TOKEN = ''
 export const fetchEmployees = async (): Promise<EmployeeData[]> => {
   return fetch('/zamestnanci', {
     method: 'get',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
     },
   })
@@ -34,7 +35,7 @@ export const fetchRegions = async (): Promise<Oblast[]> => {
   return fetch('/oblasti', {
     method: 'get',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
     },
   })
@@ -54,7 +55,7 @@ export const addEmployee = async (employee: EmployeeData): Promise<boolean> => {
   return fetch('/pridajzamestnanca', {
     method: 'post',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -76,7 +77,7 @@ export const removeEmployee = async (id: number): Promise<boolean> => {
   return fetch('/zmazzamestnanca', {
     method: 'delete',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ id }),
@@ -97,7 +98,7 @@ export const fetchSkolenia = (): Promise<Skolenie[]> => {
   return fetch('/skolenia', {
     method: 'get',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
     },
   })
@@ -116,7 +117,7 @@ export const fetchSkoleniaZamestnancov = (): Promise<SkoleniaZamestnanca[]> => {
   return fetch('/vsetkyskolenia', {
     method: 'get',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
     },
   })
@@ -135,7 +136,7 @@ export const upravSkolenie = async (skolenie: Skolenie): Promise<boolean> => {
   return fetch('upravskolenie', {
     method: 'put',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(skolenie),
@@ -156,7 +157,7 @@ export const pridajSkolenie = async (skolenie: Skolenie): Promise<boolean> => {
   return fetch('/pridajskolenie', {
     method: 'post',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -180,7 +181,7 @@ export const fetchKonciaceSkolenia = async (): Promise<
   return fetch('/konciaceskolenia', {
     method: 'get',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
     },
   })
@@ -201,7 +202,7 @@ export const editEmployee = async (
   return fetch('/upravzamestnanca', {
     method: 'put',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -225,7 +226,7 @@ export const pridajSkoleniaZamestnancom = async (
   return fetch('/pridajskoleniezamestnancom', {
     method: 'post',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -247,7 +248,7 @@ export const zmenHeslo = async (heslo: PasswordChange): Promise<boolean> => {
   return fetch('/upravheslo', {
     method: 'put',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(heslo),
@@ -268,7 +269,7 @@ export const pridajUzivatela = async (uzivatel: AddUser): Promise<boolean> => {
   return fetch('/register', {
     method: 'post',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -290,7 +291,7 @@ export const login = async (data: Login): Promise<any> => {
   return fetch('/login', {
     method: 'post',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
@@ -298,7 +299,7 @@ export const login = async (data: Login): Promise<any> => {
     .then((res) => res.json())
     .then(
       (result) => {
-        TESTING_TOKEN = result.token
+        TOKEN = result.token
         if (result.message === 'Invalid Credentials') {
           return null
         }
@@ -314,10 +315,48 @@ export const resetPasswd = async (email: string): Promise<boolean> => {
   return fetch('/resetheslo', {
     method: 'post',
     headers: {
-      'x-access-token': TESTING_TOKEN,
+      'x-access-token': TOKEN,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email: email }),
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        return true
+      },
+      (error) => {
+        return false
+      }
+    )
+}
+
+export const fetchUsers = async (): Promise<User[]> => {
+  return fetch('/uzivatelia', {
+    method: 'get',
+    headers: {
+      'x-access-token': TOKEN,
+    },
+  })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        return result
+      },
+      (error) => {
+        return []
+      }
+    )
+}
+
+export const removeUser = async (email: string): Promise<boolean> => {
+  return fetch('/zmazuzivatela', {
+    method: 'delete',
+    headers: {
+      'x-access-token': TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
   })
     .then((res) => res.json())
     .then(

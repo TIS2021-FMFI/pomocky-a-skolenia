@@ -22,6 +22,7 @@ import { setSkoleniaZamestnancov } from '../../features/skoleniaZamestnancovSlic
 import AccountManagementTab from './AccountManagementTab'
 import { RootState } from '../../app/store'
 import { setLoggedIn } from '../../features/loginSlice'
+import UsersManagementTab from './UsersManagementTab'
 
 const MainPage = () => {
   const [tabValue, setTabValue] = useState<number>(1)
@@ -93,6 +94,13 @@ const MainPage = () => {
               color={'secondary.contrastText'}
               onClick={() => setTabValue(3)}
             />
+            {isAdmin && (
+              <Tab
+                label="Správa užívateľov"
+                color={'secondary.contrastText'}
+                onClick={() => setTabValue(4)}
+              />
+            )}
           </Tabs>
           <button className="logOutbtn" onClick={() => handleSubmit()}>
             Odhlásiť
@@ -109,6 +117,7 @@ const MainPage = () => {
           {tabValue === 1 && <EmployeeTab />}
           {tabValue === 2 && <CoursesTab />}
           {tabValue === 3 && <AccountManagementTab />}
+          {tabValue === 4 && <UsersManagementTab />}
         </Grid>
       </Grid>
     </>

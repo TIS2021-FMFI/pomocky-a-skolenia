@@ -3,20 +3,20 @@ import { Box, Button, Modal, Typography } from '@mui/material'
 import styles from './Modal.module.css'
 
 type RemoveEmployeeModalProps = {
-  employee: any
+  email: string
   open: boolean
   handleClose: () => void
-  handleSubmit: (id: number) => void
+  handleSubmit: (email: string) => void
 }
 
-const RemoveEmployeeModal = ({
-  employee,
+const RemoveUserModal = ({
+  email,
   open,
   handleClose,
   handleSubmit,
 }: RemoveEmployeeModalProps) => {
   const handleRemove = async () => {
-    handleSubmit(employee.id)
+    handleSubmit(email)
     handleClose()
   }
 
@@ -34,9 +34,8 @@ const RemoveEmployeeModal = ({
         className={styles.wh}
       >
         <Typography>
-          Naozaj chcete odstrániť zamestnanca{' '}
-          <b>{employee.meno + ' ' + employee.priezvisko}</b>, tento proces je
-          trvalý a nenávratný.
+          Naozaj chcete odstrániť používateľa s emailom <b>{email}</b>, tento
+          proces je trvalý a nenávratný.
         </Typography>
         <Box
           flexGrow={1}
@@ -60,4 +59,4 @@ const RemoveEmployeeModal = ({
   )
 }
 
-export default RemoveEmployeeModal
+export default RemoveUserModal
