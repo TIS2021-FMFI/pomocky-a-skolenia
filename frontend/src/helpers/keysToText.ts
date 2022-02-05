@@ -23,6 +23,9 @@ const keyTextDict: { [key: string]: string } = {
   popis: 'Popis',
   Agentura: 'Agentúra',
   leasing: 'Leasing',
+  email: 'Email',
+  is_admin: 'Admin',
+  oblasti: 'Oblasti',
 }
 
 export const keyToText = (key: string): string => {

@@ -121,24 +121,8 @@ export type Login = {
   email: string
   password: string
 }
-export type PasswordReset = {
+
+export type User = {
   email: string
+  oblasti: Oblast[]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
