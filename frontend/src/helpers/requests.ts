@@ -368,3 +368,21 @@ export const removeUser = async (email: string): Promise<boolean> => {
       }
     )
 }
+
+export const sendData = async (): Promise<any> => {
+    return fetch('/log', {
+        method: 'get',
+        headers: {
+            'x-access-token': TOKEN,
+        },
+    })
+        .then((res) => res.json())
+        .then(
+            (result) => {
+                return result
+            },
+            (error) => {
+                return []
+            }
+        )
+}

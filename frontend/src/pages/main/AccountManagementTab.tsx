@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { RootState } from '../../app/store'
 import './AccountManagementStyle.css'
-import { pridajUzivatela, zmenHeslo } from '../../helpers/requests'
+import { pridajUzivatela, zmenHeslo, sendData } from '../../helpers/requests'
 import { useSelector } from 'react-redux'
 import MultiSelect from '../components/MultiSelect'
 import { Button } from '@mui/material'
@@ -25,6 +25,15 @@ const AccountManagementTab = () => {
       setDone1('Heslo bolo úspešne zmenené')
     } else {
       setError1('Heslo nebolo zmenené')
+    }
+  }
+
+  const sendD = async () => {
+    const poslane = await sendData()
+    if (poslane) {
+      setDone1('Dáta boli stiahnuté')
+    } else {
+      setError1('Dáta sa nepodarilo stiahnuť')
     }
   }
 
@@ -74,6 +83,13 @@ const AccountManagementTab = () => {
           <button className="account-btn" onClick={() => handleSubmit()}>
             Zmeniť
           </button>
+          <p>
+
+          </p>
+          <button className="account-btn" onClick={() => sendD()}>
+            Stiahnuť záznam zmien
+          </button>
+
           {error1 ? <div className="error">{error1}</div> : <></>}
           {done1 ? <div className="done">{done1}</div> : <></>}
         </div>
