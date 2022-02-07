@@ -86,8 +86,10 @@ const AccountManagementTab = () => {
           <p>
 
           </p>
+
+          <h1 style={{marginTop:'60px'}}>Záznam zmien</h1>
           <button className="account-btn" onClick={() => sendD()}>
-            Stiahnuť záznam zmien
+            Stiahnuť
           </button>
 
           {error1 ? <div className="error">{error1}</div> : <></>}
